@@ -2,13 +2,6 @@
 
 local brightness = 0.3
 t = Def.ActorFrame {
-	-- older bg thingies
-	--[[LoadActor("bg.lua")..{
-		InitCommand=function(self)
-			self:zoomx(SCREEN_WIDTH/640)
-		end;
-	};]]
-
 	-- from Til' Death
 	Def.Sprite {
 		CurrentSongChangedMessageCommand = function(self)
@@ -35,7 +28,7 @@ t = Def.ActorFrame {
 			self:finishtweening()
 			self:visible(false)
 		end
-	};
+	},
 };
 
 return t;
