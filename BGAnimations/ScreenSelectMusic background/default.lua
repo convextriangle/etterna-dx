@@ -12,7 +12,8 @@ t = Def.ActorFrame {
 			if GAMESTATE:GetCurrentSong() and GAMESTATE:GetCurrentSong():GetBackgroundPath() then
 				self:finishtweening()
 				self:visible(true)
-				self:LoadBackground(GAMESTATE:GetCurrentSong():GetBackgroundPath())
+				--self:LoadBackground(GAMESTATE:GetCurrentSong():GetBackgroundPath())
+				self:LoadBackground("bg.mp4")
 				self:scaletocover(0, 0, SCREEN_WIDTH, SCREEN_BOTTOM)
 				self:sleep(0.25)
 				self:smooth(0.5)
