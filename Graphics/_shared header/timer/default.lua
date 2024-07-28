@@ -1,0 +1,47 @@
+local t = Def.ActorFrame {
+	LoadActor("T_REMAIN_BAR.png")..{
+		InitCommand=function(self)
+			self:x(WideScale(SCREEN_CENTER_X+308,SCREEN_CENTER_X+412)):y(SCREEN_CENTER_Y-153)
+		end;
+		OnCommand=function(self)
+			self:diffusealpha(0.5)
+		end;
+	};
+	LoadActor("T_REMAIN_BAR.png")..{
+		InitCommand=function(self)
+			self:x(WideScale(SCREEN_CENTER_X+308,SCREEN_CENTER_X+412)):y(SCREEN_CENTER_Y-153)
+		end;
+		OnCommand=function(self)
+			self:diffusealpha(1):playcommand("Animate")
+		end;
+		AnimateCommand=function(self)
+			self:diffusealpha(1):croptop(.5):linear(0.5):croptop(0):linear(0):croptop(1):linear(0.5):croptop(.5):queuecommand("Animate")
+		end;
+	};
+	LoadActor("T_REMAIN_TEN.png")..{
+		InitCommand=function(self)
+			self:x(WideScale(SCREEN_CENTER_X+309,SCREEN_CENTER_X+413)):y(SCREEN_CENTER_Y-225):horizalign(right):vertalign(top)
+		end;
+		OnCommand=function(self)
+			self:zoomy(0.1):zoomtowidth(640):diffusealpha(0):linear(0.3):zoomx(10):diffusealpha(1):linear(0.05):zoomy(1):zoomx(1)
+		end;
+	};
+	LoadActor("TIME_LINE.png")..{
+		InitCommand=function(self)
+			self:x(WideScale(SCREEN_CENTER_X+269,SCREEN_CENTER_X+359)):y(SCREEN_CENTER_Y-139):zoomx(SCREEN_WIDTH/640)
+		end;
+		OnCommand=function(self)
+			self:cropright(1):sleep(0.5):linear(0.3):cropright(0)
+		end;
+	};
+	LoadActor("T_REMAIN.png")..{
+		InitCommand=function(self)
+			self:x(WideScale(SCREEN_CENTER_X+303,SCREEN_CENTER_X+407)):y(SCREEN_CENTER_Y-133)
+		end;
+		OnCommand=function(self)
+			self:addy(-30):diffusealpha(0):sleep(0.3):linear(0.3):addy(30):diffusealpha(1)
+		end;
+	};
+};
+
+return t;
