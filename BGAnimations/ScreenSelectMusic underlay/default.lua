@@ -82,7 +82,7 @@ local t = Def.ActorFrame {
 		Text = "title",
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 60):playcommand("Set"):horizalign(right):zoom(.9):zoomy(1)
-				:shadowlength(0):maxwidth(290)
+				:shadowlength(0):maxwidth(480)
 		end,
 		OnCommand = function(self)
 			self:diffusealpha(0):linear(0.5):diffusealpha(1)
@@ -114,7 +114,7 @@ local t = Def.ActorFrame {
 		Text = "title",
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 60):playcommand("Set"):horizalign(right):zoom(.9):zoomy(1)
-				:shadowlength(0):maxwidth(290)
+				:shadowlength(0):maxwidth(480)
 		end,
 		OnCommand = function(self)
 			self:diffusealpha(0)
