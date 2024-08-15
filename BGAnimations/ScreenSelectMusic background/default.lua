@@ -10,7 +10,6 @@ t = Def.ActorFrame {
 		ModifySongBackgroundCommand = function(self)
 			self:finishtweening()
 			if GAMESTATE:GetCurrentSong() and GAMESTATE:GetCurrentSong():GetBackgroundPath() then
-				self:finishtweening()
 				self:visible(true)
 				self:LoadBackground(GAMESTATE:GetCurrentSong():GetBackgroundPath())
 				self:scaletocover(0, 0, SCREEN_WIDTH, SCREEN_BOTTOM)
@@ -18,11 +17,16 @@ t = Def.ActorFrame {
 				self:smooth(0.5)
 				self:diffusealpha(brightness)
 			else
-				self:visible(false)
+				self:visible(true)
+				self:LoadBackground(THEME:GetPathG("", "_selectbg.mp4"))
+				self:scaletocover(0, 0, SCREEN_WIDTH, SCREEN_BOTTOM)
+				self:sleep(0.25)
+				self:smooth(0.5)
+				self:diffusealpha(1)
 			end
 		end,
 		OffCommand = function(self)
-			self:smooth(0.5):diffusealpha(0)
+			-- self:smooth(0.5):diffusealpha(0)
 		end,
 		BGOffMessageCommand = function(self)
 			self:finishtweening()

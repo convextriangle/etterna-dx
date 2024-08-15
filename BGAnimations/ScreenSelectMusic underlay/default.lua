@@ -47,7 +47,7 @@ local t = Def.ActorFrame {
 	LoadFont("artist 16px") .. {
 		Text = "artist",
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 22):playcommand("Set"):horizalign(right):zoom(0.7)
+			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 25):playcommand("Set"):horizalign(right):zoom(0.7)
 				:shadowlength(0):maxwidth(290)
 		end,
 		OnCommand = function(self)
