@@ -19,6 +19,7 @@ local t = Def.ActorFrame {
 				self:visible(false)
 				return
 			end
+			self:visible(true)
 		end,
 	},
 	LoadActor("score_data.png") .. {
@@ -32,6 +33,7 @@ local t = Def.ActorFrame {
 				self:visible(false)
 				return
 			end
+			self:visible(true)
 		end,
 	},
 	-- LoadActor("song_info.png") .. {
@@ -66,6 +68,8 @@ local t = Def.ActorFrame {
 				self:visible(false)
 				return
 			end
+
+			self:visible(true)
 		end,
 	},
 	LoadFont("artist 16px") .. {
