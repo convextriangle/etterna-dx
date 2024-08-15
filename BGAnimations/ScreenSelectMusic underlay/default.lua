@@ -2,6 +2,43 @@ local screen
 
 -- Difficulty selection banner, song subtitle, title and artist
 local t = Def.ActorFrame {
+	-- LoadActor("banner.png") .. {
+	-- 	InitCommand = function(self)
+	-- 		self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+	-- 		self:zoom(0.45)
+	-- 	end
+	-- },
+	LoadActor("play_data.png") .. {
+		InitCommand = function(self)
+			self:x(SCREEN_CENTER_X - 85):y(SCREEN_CENTER_Y + 175)
+			self:zoom(0.45)
+		end
+	},
+	LoadActor("score_data.png") .. {
+		InitCommand = function(self)
+			self:x(SCREEN_CENTER_X - 280):y(SCREEN_CENTER_Y + 175)
+			self:zoom(0.45)
+		end
+	},
+	-- LoadActor("song_info.png") .. {
+	-- 	InitCommand = function(self)
+	-- 		self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+	-- 		self:zoom(0.45)
+	-- 	end
+	-- },
+	-- LoadActor("separator.png") .. {
+	-- 	InitCommand = function(self)
+	-- 		self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+	-- 		self:zoom(0.45)
+	-- 	end
+	-- },
+	LoadActor("bottom") .. {
+		InitCommand = function(self)
+			self:x(SCREEN_CENTER_X):y(SCREEN_BOTTOM - 10):visible(true)
+			self:zoom(0.45)
+			self:draworder(1024)
+		end
+	},
 	LoadActor("DIFF_WAKU") .. {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X - 120):y(SCREEN_CENTER_Y + 46):visible(true)
