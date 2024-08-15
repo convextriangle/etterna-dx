@@ -12,13 +12,27 @@ local t = Def.ActorFrame {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X - 85):y(SCREEN_CENTER_Y + 175)
 			self:zoom(0.45)
-		end
+		end,
+		CurrentSongChangedMessageCommand = function(self)
+			local song = GAMESTATE:GetCurrentSong()
+			if not song then
+				self:visible(false)
+				return
+			end
+		end,
 	},
 	LoadActor("score_data.png") .. {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X - 280):y(SCREEN_CENTER_Y + 175)
 			self:zoom(0.45)
-		end
+		end,
+		CurrentSongChangedMessageCommand = function(self)
+			local song = GAMESTATE:GetCurrentSong()
+			if not song then
+				self:visible(false)
+				return
+			end
+		end,
 	},
 	-- LoadActor("song_info.png") .. {
 	-- 	InitCommand = function(self)
@@ -45,6 +59,13 @@ local t = Def.ActorFrame {
 		end,
 		OnCommand = function(self)
 			self:zoomy(0):sleep(0.2):linear(0.2):zoomy(1)
+		end,
+		CurrentSongChangedMessageCommand = function(self)
+			local song = GAMESTATE:GetCurrentSong()
+			if not song then
+				self:visible(false)
+				return
+			end
 		end,
 	},
 	LoadFont("artist 16px") .. {
