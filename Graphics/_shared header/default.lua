@@ -3,8 +3,7 @@ local t = Def.ActorFrame {
         InitCommand = function(self)
             self:x(SCREEN_CENTER_X)
             self:y(SCREEN_CENTER_Y)
-            self:zoomx(0.45)
-            self:zoomy(0.45)
+            self:zoom(0.45)
         end
     }
 };
