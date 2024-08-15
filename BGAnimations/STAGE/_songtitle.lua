@@ -1,23 +1,24 @@
 return Def.ActorFrame {
 	-- Layer5
-	LoadFont("songtitle")..{
-		Text="title1",
-		InitCommand=function(self)
-			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title1",
+		InitCommand = function(self)
+			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
@@ -30,24 +31,25 @@ return Def.ActorFrame {
 		end
 	},
 	-- Layer6
-	LoadFont("songtitle")..{
-		Text="title2",
-		InitCommand=function(self)
-			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title2",
+		InitCommand = function(self)
+			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
@@ -67,24 +69,25 @@ return Def.ActorFrame {
 		end
 	},
 	-- Layer7
-	LoadFont("songtitle")..{
-		Text="title3",
-		InitCommand=function(self)
-			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title3",
+		InitCommand = function(self)
+			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
@@ -98,24 +101,25 @@ return Def.ActorFrame {
 		end
 	},
 	-- Layer8
-	LoadFont("songtitle")..{
-		Text="title4",
-		InitCommand=function(self)
-			self:x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title4",
+		InitCommand = function(self)
+			self:x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
@@ -130,24 +134,25 @@ return Def.ActorFrame {
 		end
 	},
 	-- Layer10
-	LoadFont("songtitle")..{
-		Text="title5",
-		InitCommand=function(self)
-			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title5",
+		InitCommand = function(self)
+			self:blend('BlendMode_Add'):x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
@@ -165,29 +170,30 @@ return Def.ActorFrame {
 		end
 	},
 	-- Layer12/1
-	LoadFont("songtitle")..{
-		Text="title6",
-		InitCommand=function(self)
-			self:x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title6",
+		InitCommand = function(self)
+			self:x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
 			self:visible(true)
-			self:y(SCREEN_CENTER_Y-54)
+			self:y(SCREEN_CENTER_Y - 54)
 			self:diffusealpha(0)
 			self:sleep(.3)
 			self:zoom(1)
@@ -195,33 +201,34 @@ return Def.ActorFrame {
 			self:sleep(2.1)
 			self:decelerate(.7)
 			self:zoom(.8)
-			self:y(SCREEN_CENTER_Y-42)
+			self:y(SCREEN_CENTER_Y - 42)
 		end
 	},
 	-- Layer12/2
-	LoadFont("songtitle")..{
-		Text="title6",
-		InitCommand=function(self)
-			self:x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title6",
+		InitCommand = function(self)
+			self:x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
 			self:visible(true)
-			self:y(SCREEN_CENTER_Y-54)
+			self:y(SCREEN_CENTER_Y - 54)
 			self:diffusealpha(0)
 			self:zoom(1)
 			self:sleep(2.4)
@@ -229,33 +236,34 @@ return Def.ActorFrame {
 			self:decelerate(.7)
 			self:blend('BlendMode_Add')
 			self:zoom(1.3)
-			self:y(SCREEN_CENTER_Y-68)
+			self:y(SCREEN_CENTER_Y - 68)
 		end
 	},
 	-- Layer12/3
-	LoadFont("songtitle")..{
-		Text="title6",
-		InitCommand=function(self)
-			self:x(320):y(SCREEN_CENTER_Y-54):playcommand("Set"):shadowlength(0):maxwidth(290)
+	LoadFont("01/01 48px") .. {
+		Text = "title6",
+		InitCommand = function(self)
+			self:x(320):y(SCREEN_CENTER_Y - 54):playcommand("Set"):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:settext(song:GetDisplayMainTitle())
 			self:visible(true)
-			self:y(SCREEN_CENTER_Y-54)
+			self:y(SCREEN_CENTER_Y - 54)
 			self:diffusealpha(0)
 			self:zoom(1)
 			self:sleep(2.4)
@@ -263,32 +271,33 @@ return Def.ActorFrame {
 			self:decelerate(.7)
 			self:blend('BlendMode_Add')
 			self:zoom(1.8)
-			self:y(SCREEN_CENTER_Y-94)
+			self:y(SCREEN_CENTER_Y - 94)
 		end
 	},
 	-- Artist/1
-	LoadFont("artist 16px")..{
-		Text="artist",
-		InitCommand=function(self)
-			self:x(320):y(SCREEN_CENTER_Y-10):playcommand("Set"):zoom(0.7):shadowlength(0):maxwidth(290)
+	LoadFont("artist 16px") .. {
+		Text = "artist",
+		InitCommand = function(self)
+			self:x(320):y(SCREEN_CENTER_Y - 10):playcommand("Set"):zoom(0.7):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:visible(true)
-			self:y(SCREEN_CENTER_Y-10)
+			self:y(SCREEN_CENTER_Y - 10)
 			self:zoom(.7)
 			self:addy(10)
 			self:diffusealpha(0)
@@ -299,73 +308,75 @@ return Def.ActorFrame {
 			self:sleep(2.05)
 			self:decelerate(.7)
 			self:zoom(.5)
-			self:y(SCREEN_CENTER_Y-11)
+			self:y(SCREEN_CENTER_Y - 11)
 			self:settext(song:GetDisplayArtist())
 		end
 	},
 	-- Artist/2
-	LoadFont("artist 16px")..{
-		Text="artist",
-		InitCommand=function(self)
-			self:x(320):y(SCREEN_CENTER_Y-10):playcommand("Set"):zoom(0.7):shadowlength(0):maxwidth(290)
+	LoadFont("artist 16px") .. {
+		Text = "artist",
+		InitCommand = function(self)
+			self:x(320):y(SCREEN_CENTER_Y - 10):playcommand("Set"):zoom(0.7):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:visible(true)
-			self:y(SCREEN_CENTER_Y-10)
+			self:y(SCREEN_CENTER_Y - 10)
 			self:zoom(.7)
 			self:diffusealpha(0)
 			self:sleep(2.4)
 			self:diffusealpha(.5)
 			self:decelerate(.7)
 			self:zoom(1)
-			self:y(SCREEN_CENTER_Y-18)
+			self:y(SCREEN_CENTER_Y - 18)
 			self:settext(song:GetDisplayArtist())
 		end
 	},
 	-- Artist/3
-	LoadFont("artist 16px")..{
-		Text="artist",
-		InitCommand=function(self)
-			self:x(320):y(SCREEN_CENTER_Y-10):playcommand("Set"):zoom(0.7):shadowlength(0):maxwidth(290)
+	LoadFont("artist 16px") .. {
+		Text = "artist",
+		InitCommand = function(self)
+			self:x(320):y(SCREEN_CENTER_Y - 10):playcommand("Set"):zoom(0.7):shadowlength(0):maxwidth(290)
 		end,
-		OnCommand=function(self)
+		OnCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		OffCommand=function(self)
+		OffCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		CurrentSongChangedMessageCommand=function(self)
+		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
 		end,
-		SetCommand=function(self)
+		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
 			if not song
-				then self:visible(false)
+			then
+				self:visible(false)
 				return
 			end
 			self:visible(true)
-			self:y(SCREEN_CENTER_Y-10)
+			self:y(SCREEN_CENTER_Y - 10)
 			self:zoom(.7)
 			self:diffusealpha(0)
 			self:sleep(2.4)
 			self:diffusealpha(.5)
 			self:decelerate(.7)
 			self:zoom(1.5)
-			self:y(SCREEN_CENTER_Y-25)
+			self:y(SCREEN_CENTER_Y - 25)
 			self:settext(song:GetDisplayArtist())
 		end
 	},
