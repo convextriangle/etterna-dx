@@ -73,9 +73,9 @@ local t = Def.ActorFrame {
 		end,
 	},
 	LoadFont("artist 16px") .. {
-		Text = "subtitle",
+		Text = "stepartist_subtitle",
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 85):playcommand("Set"):horizalign(right):zoom(0.7)
+			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 95):playcommand("Set"):horizalign(right):zoom(0.7)
 				:shadowlength(0):maxwidth(290)
 		end,
 		OnCommand = function(self)
@@ -103,7 +103,7 @@ local t = Def.ActorFrame {
 			self:addx(5)
 			self:addy(5)
 			self:diffusealpha(1)
-			self:settext(song:GetDisplaySubTitle())
+			self:settext(song:GetDisplaySubTitle() .. " // " .. song:GetOrTryAtLeastToGetSimfileAuthor())
 		end
 	},
 	LoadFont("artist 16px") .. {
