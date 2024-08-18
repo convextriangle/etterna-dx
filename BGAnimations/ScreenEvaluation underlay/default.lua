@@ -4,6 +4,7 @@ local function transform(self)
 end
 
 local t = Def.ActorFrame {
+	LoadActor(THEME:GetPathG("", "_shared header")),
 	LoadActor("epic_triangle") .. {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X):y(SCREEN_TOP + 10)
@@ -12,67 +13,68 @@ local t = Def.ActorFrame {
 	},
 	LoadActor("file_info") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X + 250):y(SCREEN_CENTER_Y - 100)
 			transform(self)
 		end
 	},
 	LoadActor("free_stage_result") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X):y(SCREEN_TOP + 10)
 			transform(self)
 		end
 	},
 	LoadActor("game_type") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X - 98):y(SCREEN_BOTTOM - 20)
 			transform(self)
+			self:setstate(GAMESTATE:GetCurrentStyle():ColumnsPerPlayer() - 4):pause()
 		end
 	},
 	LoadActor("judge_detail") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X - 300):y(SCREEN_CENTER_Y + 150)
 			transform(self)
 		end
 	},
 	LoadActor("nm") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X - 70):y(SCREEN_BOTTOM - 20)
 			transform(self)
 		end
 	},
 	LoadActor("note_count") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X + 70):y(SCREEN_BOTTOM - 20)
 			transform(self)
 		end
 	},
 	LoadActor("player_hp_frame") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X - 285):y(SCREEN_CENTER_Y - 155):draworder(2)
 			transform(self)
 		end
 	},
 	LoadActor("player_info") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X - 285):y(SCREEN_CENTER_Y - 150):draworder(1)
 			transform(self)
 		end
 	},
 	LoadActor("score_info") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X - 300):y(SCREEN_CENTER_Y)
 			transform(self)
 		end
 	},
 	LoadActor("separator") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X):y(SCREEN_BOTTOM - 30)
 			transform(self)
 		end
 	},
 	LoadActor("song_info_bar") .. {
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
+			self:x(SCREEN_CENTER_X - 50):y(SCREEN_BOTTOM - 20)
 			transform(self)
 		end
 	},
@@ -80,7 +82,7 @@ local t = Def.ActorFrame {
 	LoadFont("TextBanner text") .. {
 		Text = "song",
 		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_BOTTOM - 55):maxwidth(512):diffusealpha(0):sleep(.2):linear(.2)
+			self:x(SCREEN_CENTER_X):y(SCREEN_BOTTOM - 70):maxwidth(512):diffusealpha(0):sleep(.2):linear(.2)
 				:diffusealpha(1)
 		end,
 		OnCommand = function(self)
@@ -92,7 +94,7 @@ local t = Def.ActorFrame {
 			end
 			self:visible(true)
 
-			local str = string.format("%s - %s", song:GetDisplayArtist(), song:GetDisplayMainTitle())
+			local str = string.format("%s\n%s", song:GetDisplayArtist(), song:GetDisplayMainTitle())
 
 			self:settext(str)
 		end

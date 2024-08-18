@@ -16,16 +16,17 @@ local judges = {
 }
 
 -- the "everything" container
-t[#t+1] = Def.ActorFrame {
+t[#t + 1] = Def.ActorFrame {
     InitCommand = function(self)
         -- children are relative to the center of the screen (relative to this position)
-        self:xy(SCREEN_CENTER_X + 230, SCREEN_CENTER_Y - 180)
+        self:xy(SCREEN_CENTER_X + 250, SCREEN_CENTER_Y - 180)
+        self:zoom(0.9)
     end,
 
     LoadFont("Common Normal") .. {
         InitCommand = function(self)
             self:valign(1)
-            self:settextf("%.6f%%", score:GetWifeScore()*100)
+            self:settextf("%.6f%%", score:GetWifeScore() * 100)
         end
     },
     LoadFont("Common Normal") .. {
