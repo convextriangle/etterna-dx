@@ -1,11 +1,6 @@
 # EC:FN theme port for Etterna v0.72.3
 - todo: lots of stuffs
 
-# ???
-aoi zipped their theme with a password (donburako) for some reason (japan moment - filthy foreigner do not brain) so i should've done the same
-
-i made this for myself and my frens, if you don't like what i did - too bad :^) (but report bugs and stuff kthx)
-
 # original README
 
 ric(@Aoi_psy)
