@@ -1,4 +1,4 @@
-# EC:FN theme port for Etterna v0.72.3
+# theme port for Etterna v0.72.3
 - todo: lots of stuffs
 
 # original README
