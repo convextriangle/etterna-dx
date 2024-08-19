@@ -11,44 +11,14 @@ local ctt = pss:GetTrackVector()
 local ntt = pss:GetTapNoteTypeVector()
 local totalTaps = pss:GetTotalTaps()
 
-local frameWidth = SCREEN_CENTER_X-WideScale(get43size(40),40)
+local frameWidth = SCREEN_CENTER_X - WideScale(get43size(40), 40)
 local frameHeight = 300
 
-local offsetParamX = SCREEN_CENTER_X*3/2-frameWidth/2
-local offsetParamY = SCREEN_HEIGHT - 180
-local offsetParamZoom = 0.5
-local offsetParamWidth = frameWidth
-local offsetParamHeight = 150
-
-local altOffsetParamX = 41/1066 * SCREEN_WIDTH
-local altOffsetParamY = offsetY2
-local altOffsetParamZoom = 0.5
-local altOffsetParamWidth = offsetWidth2
-local altOffsetParamHeight = offsetHeight2
-
-local localparamscopy = {}
-local selectedparamscopy = {}
-
-local x_fudge = -40
-local y_fudge = -75
-
--- im stupid
-local function setOffsetParams()
-	if usingSimpleScreen then
-		offsetParamX = altOffsetParamX + x_fudge
-		offsetParamY = altOffsetParamY + y_fudge
-		offsetParamZoom = altOffsetParamZoom
-		offsetParamWidth = altOffsetParamWidth
-		offsetParamHeight = altOffsetParamHeight
-	else
-		offsetParamX = SCREEN_CENTER_X*3/2-frameWidth/2 + x_fudge
-		offsetParamY = SCREEN_HEIGHT - 180 + y_fudge
-		offsetParamZoom = 0.5
-		offsetParamWidth = frameWidth
-		offsetParamHeight = 150
-	end
-end
-setOffsetParams()
+local offsetParamX = SCREEN_CENTER_X + 100
+local offsetParamY = SCREEN_CENTER_Y + 50
+local offsetParamZoom = 0.75
+local offsetParamWidth = frameWidth * offsetParamZoom
+local offsetParamHeight = 150 * offsetParamZoom
 
 local t = Def.ActorFrame {}
 local function offsetInput(event)
@@ -65,18 +35,18 @@ local function offsetInput(event)
 		end
 
 		if outputName ~= "" then
-			MESSAGEMAN:Broadcast("OffsetPlotModification", {Name = outputName})
+			MESSAGEMAN:Broadcast("OffsetPlotModification", { Name = outputName })
 		end
 
 		if (INPUTFILTER:IsBeingPressed("left ctrl") or INPUTFILTER:IsBeingPressed("right ctrl")) and
-		event.DeviceInput.button == "DeviceButton_a" then
+			event.DeviceInput.button == "DeviceButton_a" then
 			usingSimpleScreen = not usingSimpleScreen
 			MESSAGEMAN:Broadcast("SwitchEvalTypes")
 		end
 	end
 end
 
-t[#t+1] = LoadActor(THEME:GetPathG("","OffsetGraph"))..{
+t[#t + 1] = LoadActor(THEME:GetPathG("", "OffsetGraph")) .. {
 	InitCommand = function(self, params)
 		self:xy(offsetParamX, offsetParamY)
 		self:zoom(offsetParamZoom)
@@ -86,17 +56,20 @@ t[#t+1] = LoadActor(THEME:GetPathG("","OffsetGraph"))..{
 		local steps = GAMESTATE:GetCurrentSteps()
 
 		self:RunCommandsOnChildren(function(self)
-			local params = 	{width = offsetParamWidth, 
-							height = offsetParamHeight,
-							song = song, 
-							steps = steps, 
-							nrv = nrv,
-							dvt = dvt,
-							ctt = ctt,
-							ntt = ntt,
-							columns = steps:GetNumColumns()}
+			local params = {
+				width = offsetParamWidth,
+				height = offsetParamHeight,
+				song = song,
+				steps = steps,
+				nrv = nrv,
+				dvt = dvt,
+				ctt = ctt,
+				ntt = ntt,
+				columns = steps:GetNumColumns()
+			}
 			localparamscopy = params
-			self:playcommand("Update", params) end
+			self:playcommand("Update", params)
+		end
 		)
 	end,
 	ShowScoreOffsetMessageCommand = function(self, params)
@@ -112,22 +85,28 @@ t[#t+1] = LoadActor(THEME:GetPathG("","OffsetGraph"))..{
 				MESSAGEMAN:Broadcast("DelayedShowOffset")
 			end
 		else
-			self:RunCommandsOnChildren(function(self) self:playcommand("Update", {width = offsetParamWidth, height = offsetParamHeight}) end)
+			self:RunCommandsOnChildren(function(self)
+				self:playcommand("Update",
+					{ width = offsetParamWidth, height = offsetParamHeight })
+			end)
 		end
 	end,
 	DelayedShowOffsetMessageCommand = function(self)
 		self:RunCommandsOnChildren(function(self)
-			local params = 	{width = offsetParamWidth, 
-							height = offsetParamHeight, 
-							song = song, 
-							steps = steps, 
-							nrv = scoreList[offsetIndex]:GetNoteRowVector(),
-							dvt = scoreList[offsetIndex]:GetOffsetVector(),
-							ctt = scoreList[offsetIndex]:GetTrackVector(),
-							ntt = scoreList[offsetIndex]:GetTapNoteTypeVector(),
-							columns = steps:GetNumColumns()}
+			local params = {
+				width = offsetParamWidth,
+				height = offsetParamHeight,
+				song = song,
+				steps = steps,
+				nrv = scoreList[offsetIndex]:GetNoteRowVector(),
+				dvt = scoreList[offsetIndex]:GetOffsetVector(),
+				ctt = scoreList[offsetIndex]:GetTrackVector(),
+				ntt = scoreList[offsetIndex]:GetTapNoteTypeVector(),
+				columns = steps:GetNumColumns()
+			}
 			selectedparamscopy = params
-			self:playcommand("Update", params) end
+			self:playcommand("Update", params)
+		end
 		)
 	end,
 	OnCommand = function(self)
@@ -147,9 +126,9 @@ t[#t+1] = LoadActor(THEME:GetPathG("","OffsetGraph"))..{
 }
 
 -- Missing noterows text
-t[#t+1] = LoadFont("Common Normal") .. {
+t[#t + 1] = LoadFont("Common Normal") .. {
 	InitCommand = function(self)
-		self:xy(SCREEN_WIDTH * 3/4, SCREEN_HEIGHT * 3/4)
+		self:xy(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT * 3 / 4)
 		self:settext("Missing Noterows from Online Replay\n(゜´Д｀゜)")
 		self:zoom(0.4)
 		self:diffuse(color(colorConfig:get_data().selectMusic.TabContentText)):diffusealpha(0.6)

@@ -1,5 +1,4 @@
 -- from spawncamping-wallhack
-
 local timingWindowScale = PREFSMAN:GetPreference("TimingWindowScale")
 local W5Window = PREFSMAN:GetPreference("TimingWindowSecondsW5") -- Timing window for Bads
 
@@ -7,7 +6,7 @@ local dotWidth = 2
 local dotHeight = 2
 
 -- shamelessly lifted straight from Til Death in Etterna .64:
-local judges = {"marv", "perf", "great", "good", "boo", "miss"}
+local judges = { "marv", "perf", "great", "good", "boo", "miss" }
 local tst = ms.JudgeScalers
 local judge = (PREFSMAN:GetPreference("SortBySSRNormPercent") and 4 or GetTimingDifficulty())
 local tso = tst[judge]
@@ -19,11 +18,11 @@ local function clampJudge()
 end
 clampJudge()
 
-local dvt = {} -- offset vector
-local nrt = {} -- noterow vector
-local ctt = {} -- track vector
-local ntt = {} -- tap note type vector
-local wuab = {} -- time corrected tap notes (?)
+local dvt = {}    -- offset vector
+local nrt = {}    -- noterow vector
+local ctt = {}    -- track vector
+local ntt = {}    -- tap note type vector
+local wuab = {}   -- time corrected tap notes (?)
 local columns = 4 -- the number of columns because we dont keep track of this i guess
 local finalSecond = GAMESTATE:GetCurrentSong():GetLastSecond()
 local td = GAMESTATE:GetCurrentSteps():GetTimingData()
@@ -49,10 +48,10 @@ local function fitY(y) -- Scale offset values to fit within plot height
 	return -1 * y / maxOffset * setHeight / 2
 end
 local function setOffsetVerts(vt, x, y, c, alpha)
-	vt[#vt + 1] = {{x - dotWidth/2, y + dotWidth/2, 0}, c}
-	vt[#vt + 1] = {{x + dotWidth/2, y + dotWidth/2, 0}, c}
-	vt[#vt + 1] = {{x + dotWidth/2, y - dotWidth/2, 0}, c}
-	vt[#vt + 1] = {{x - dotWidth/2, y - dotWidth/2, 0}, c}
+	vt[#vt + 1] = { { x - dotWidth / 2, y + dotWidth / 2, 0 }, c }
+	vt[#vt + 1] = { { x + dotWidth / 2, y + dotWidth / 2, 0 }, c }
+	vt[#vt + 1] = { { x + dotWidth / 2, y - dotWidth / 2, 0 }, c }
+	vt[#vt + 1] = { { x - dotWidth / 2, y - dotWidth / 2, 0 }, c }
 end
 
 -- convert a plot x position to a noterow
@@ -80,11 +79,12 @@ end
 
 local baralpha = 0.4
 
-local t = Def.ActorFrame{
+local t = Def.ActorFrame {
 	InitCommand = function(self)
 		self:RunCommandsOnChildren(function(self)
-			local params = {width = 0, height = 0, song = nil, steps = nil, nrv = {}, dvt = {}, ctt = {}, ntt = {}}
-			self:playcommand("Update", params) end
+			local params = { width = 0, height = 0, song = nil, steps = nil, nrv = {}, dvt = {}, ctt = {}, ntt = {} }
+			self:playcommand("Update", params)
+		end
 		)
 	end,
 	OnCommand = function(self)
@@ -106,22 +106,22 @@ local t = Def.ActorFrame{
 			clampJudge()
 			tso = tst[judge]
 		elseif params.Name == "ToggleHands" and #ctt > 0 then --super ghetto toggle -mina
-			if not handspecific then -- moving from none to left 
-				handspecific = true 
+			if not handspecific then                    -- moving from none to left
+				handspecific = true
 				left = true
-			elseif handspecific and left then -- moving from left to middle 
-				if oddColumns then 
+			elseif handspecific and left then -- moving from left to middle
+				if oddColumns then
 					middle = true
-				end 
-				left = false 
-			elseif handspecific and middle then -- moving from middle to right 
+				end
+				left = false
+			elseif handspecific and middle then -- moving from middle to right
 				middle = false
-			elseif handspecific and not left then -- moving from right to none 
+			elseif handspecific and not left then -- moving from right to none
 				handspecific = false
-			end 
+			end
 		end
 		if params.Name == "ResetJudge" then
-			judge =  PREFSMAN:GetPreference("SortBySSRNormPercent") and 4 or GetTimingDifficulty()
+			judge = PREFSMAN:GetPreference("SortBySSRNormPercent") and 4 or GetTimingDifficulty()
 			clampJudge()
 			tso = tst[(PREFSMAN:GetPreference("SortBySSRNormPercent") and 4 or GetTimingDifficulty())]
 		end
@@ -132,11 +132,11 @@ local t = Def.ActorFrame{
 }
 
 -- Plot BG
-t[#t+1] = Def.Quad{
+t[#t + 1] = Def.Quad {
 	Name = "Background",
 	InitCommand = function(self)
 		self:halign(0):valign(0)
-		self:diffuse(getMainColor("frame")):diffusealpha(0.8)
+		self:diffuse(getMainColor("frame")):diffusealpha(0.7)
 	end,
 	UpdateCommand = function(self, params)
 		setWidth = params.width
@@ -164,18 +164,21 @@ t[#t+1] = Def.Quad{
 			bg:x(xpos)
 			bg:zoomto(txt:GetZoomedWidth() + 4, txt:GetZoomedHeight() + 4)
 			local row = convertXToRow(xpos)
-			local judgments = SCREENMAN:GetTopScreen():GetReplaySnapshotJudgmentsForNoterow(row)
-			local wifescore = SCREENMAN:GetTopScreen():GetReplaySnapshotWifePercentForNoterow(row) * 100
-			local mean = SCREENMAN:GetTopScreen():GetReplaySnapshotMeanForNoterow(row)
-			local sd = SCREENMAN:GetTopScreen():GetReplaySnapshotSDForNoterow(row)
+			local replay = REPLAYS:GetActiveReplay()
+			local snapshot = replay:GetReplaySnapshotForNoterow(row)
+
+			local judgments = snapshot:GetJudgments()
+			local wifescore = snapshot:GetWifePercent() * 100
+			local mean = snapshot:GetMean()
+			local sd = snapshot:GetStandardDeviation()
 			local timebro = td:GetElapsedTimeFromNoteRow(row) / getCurRateValue()
 
-			local marvCount = judgments[10]
-			local perfCount = judgments[9]
-			local greatCount = judgments[8]
-			local goodCount = judgments[7]
-			local badCount = judgments[6]
-			local missCount = judgments[5]
+			local marvCount = judgments["W1"]
+			local perfCount = judgments["W2"]
+			local greatCount = judgments["W3"]
+			local goodCount = judgments["W4"]
+			local badCount = judgments["W5"]
+			local missCount = judgments["Miss"]
 
 			--txt:settextf("x %f\nrow %f\nbeat %f\nfinalsecond %f", xpos, row, row/48, finalSecond)
 			-- The odd formatting here is in case we want to add translation support.
@@ -200,30 +203,32 @@ t[#t+1] = Def.Quad{
 }
 
 -- Plot center horizontal line
-t[#t+1] = Def.Quad{
+t[#t + 1] = Def.Quad {
 	Name = "Center Line",
 	InitCommand = function(self)
 		self:halign(0):valign(0)
 		self:diffusealpha(baralpha)
 	end,
 	UpdateCommand = function(self, params)
-		self:xy(0,params.height/2)
-		self:zoomto(params.width,1)
+		self:xy(0, params.height / 2)
+		self:zoomto(params.width, 1)
 	end
 }
 
 local function checkParams(params)
 	local fixedparams = params
 	if params.width == nil then
-		fixedparams = {width = setWidth, 
-		height = setHeight, 
-		song = setSong, 
-		steps = setSteps, 
-		nrv = nrv,
-		dvt = dvt,
-		ctt = ctt,
-		ntt = ntt,
-		columns = columns}
+		fixedparams = {
+			width = setWidth,
+			height = setHeight,
+			song = setSong,
+			steps = setSteps,
+			nrv = nrv,
+			dvt = dvt,
+			ctt = ctt,
+			ntt = ntt,
+			columns = columns
+		}
 	end
 	oddColumns = GAMESTATE:GetCurrentStyle():ColumnsPerPlayer() % 2 ~= 0
 	middleColumn = (GAMESTATE:GetCurrentStyle():ColumnsPerPlayer() - 1) / 2.0
@@ -231,42 +236,42 @@ local function checkParams(params)
 end
 
 -- this section creates the bars for different judgment levels
-local fantabars = {22.5, 45, 90, 135}
-local bantafars = {"TapNoteScore_W2", "TapNoteScore_W3", "TapNoteScore_W4", "TapNoteScore_W5"}
+local fantabars = { 22.5, 45, 90, 135 }
+local bantafars = { "TapNoteScore_W2", "TapNoteScore_W3", "TapNoteScore_W4", "TapNoteScore_W5" }
 for i = 1, #fantabars do
 	t[#t + 1] =
 		Def.Quad {
-		InitCommand = function(self)
-			self:halign(0):valign(0)
-		end,
-		UpdateCommand = function(self, params)
-			params = checkParams(params)
-			self:zoomto(params.width, 1):diffuse(byJudgment(bantafars[i])):diffusealpha(baralpha)
-			local fit = tso * fantabars[i]
-			self:y(fitY(fit) + params.height/2)
-		end,
-		JudgeDisplayChangedMessageCommand = function(self)
-			self:queuecommand("Update")
-		end
-	}
+			InitCommand = function(self)
+				self:halign(0):valign(0)
+			end,
+			UpdateCommand = function(self, params)
+				params = checkParams(params)
+				self:zoomto(params.width, 1):diffuse(byJudgment(bantafars[i])):diffusealpha(baralpha)
+				local fit = tso * fantabars[i]
+				self:y(fitY(fit) + params.height / 2)
+			end,
+			JudgeDisplayChangedMessageCommand = function(self)
+				self:queuecommand("Update")
+			end
+		}
 	t[#t + 1] =
 		Def.Quad {
-		InitCommand = function(self)
-			self:halign(0):valign(0)
-		end,
-		UpdateCommand = function(self, params)
-			params = checkParams(params)
-			self:zoomto(params.width, 1):diffuse(byJudgment(bantafars[i])):diffusealpha(baralpha)
-			local fit = tso * fantabars[i]
-			self:y(fitY(-fit) + params.height/2)
-		end,
-		JudgeDisplayChangedMessageCommand = function(self)
-			self:queuecommand("Update")
-		end
-	}
+			InitCommand = function(self)
+				self:halign(0):valign(0)
+			end,
+			UpdateCommand = function(self, params)
+				params = checkParams(params)
+				self:zoomto(params.width, 1):diffuse(byJudgment(bantafars[i])):diffusealpha(baralpha)
+				local fit = tso * fantabars[i]
+				self:y(fitY(-fit) + params.height / 2)
+			end,
+			JudgeDisplayChangedMessageCommand = function(self)
+				self:queuecommand("Update")
+			end
+		}
 end
 
-t[#t+1] = Def.Quad {
+t[#t + 1] = Def.Quad {
 	Name = "PosBar",
 	InitCommand = function(self)
 		self:visible(false)
@@ -278,14 +283,14 @@ t[#t+1] = Def.Quad {
 		self:zoomto(2, params.height)
 	end
 }
- 
+
 -- Late ms text
-t[#t+1] = LoadFont("artist 16px")..{
-	InitCommand=function(self)
+t[#t + 1] = LoadFont("Common Normal") .. {
+	InitCommand = function(self)
 		self:zoom(0.3):halign(0):valign(0):diffusealpha(0.4)
 	end,
 	UpdateCommand = function(self)
-		self:xy(5,5)
+		self:xy(5, 5)
 		self:settextf("Late (+%d ms)", maxOffset)
 	end,
 	JudgeDisplayChangedMessageCommand = function(self)
@@ -294,13 +299,13 @@ t[#t+1] = LoadFont("artist 16px")..{
 }
 
 -- Early ms text
-t[#t+1] = LoadFont("artist 16px")..{
-	InitCommand=function(self)
+t[#t + 1] = LoadFont("Common Normal") .. {
+	InitCommand = function(self)
 		self:zoom(0.3):halign(0):valign(1):diffusealpha(0.4)
 	end,
 	UpdateCommand = function(self, params)
 		params = checkParams(params)
-		self:xy(5,params.height-5)
+		self:xy(5, params.height - 5)
 		self:settextf("Early (-%d ms)", maxOffset)
 	end,
 	JudgeDisplayChangedMessageCommand = function(self)
@@ -309,14 +314,14 @@ t[#t+1] = LoadFont("artist 16px")..{
 }
 
 -- Highlight info text
-t[#t+1] = LoadFont("artist 16px") .. {
+t[#t + 1] = LoadFont("Common Normal") .. {
 	InitCommand = function(self)
 		self:zoom(0.3):diffusealpha(0.4)
 		self:settext("")
 	end,
 	UpdateCommand = function(self, params)
 		params = checkParams(params)
-		self:xy(params.width/2, params.height - 10)
+		self:xy(params.width / 2, params.height - 10)
 		if ntt ~= nil and #ntt > 0 then
 			if handspecific then
 				if left then
@@ -339,14 +344,14 @@ t[#t+1] = LoadFont("artist 16px") .. {
 }
 
 -- the dots.
-t[#t+1] = Def.ActorMultiVertex{
+t[#t + 1] = Def.ActorMultiVertex {
 	UpdateCommand = function(self, params)
 		params = checkParams(params)
 		local verts = {}
-		
+
 		if params.song == nil or params.steps == nil or params.nrv == nil or params.dvt == nil then
 			self:SetVertices(verts)
-			self:SetDrawState{Mode="DrawMode_Quads", First = 1, Num = #verts}
+			self:SetDrawState { Mode = "DrawMode_Quads", First = 1, Num = #verts }
 			return
 		end
 
@@ -356,10 +361,10 @@ t[#t+1] = Def.ActorMultiVertex{
 
 		local songLength = params.song:GetLastSecond()
 
-		for i=1, #params.nrv do
+		for i = 1, #params.nrv do
 			if params.dvt[i] ~= nil then
 				local timestamp = params.steps:GetTimingData():GetElapsedTimeFromNoteRow(params.nrv[i])
-				local offset = params.dvt[i]/1000
+				local offset = params.dvt[i] / 1000
 
 				local color = offsetToJudgeColor(params.dvt[i], tst[judge])
 				color[4] = 1 -- force alpha = 1
@@ -386,39 +391,41 @@ t[#t+1] = Def.ActorMultiVertex{
 				if math.abs(offset) >= 1 then
 					-- Misses
 					if alpha == 1 then alpha = 0.3 else alpha = 0.1 end
-					verts[#verts+1] = {{x-dotWidth/4, params.height,0}, Alpha(color, alpha)}
-					verts[#verts+1] = {{x+dotWidth/4, params.height,0}, Alpha(color, alpha)}
-					verts[#verts+1] = {{x+dotWidth/4, 0,0}, Alpha(color, alpha)}
-					verts[#verts+1] = {{x-dotWidth/4, 0,0}, Alpha(color, alpha)}
+					verts[#verts + 1] = { { x - dotWidth / 4, params.height, 0 }, Alpha(color, alpha) }
+					verts[#verts + 1] = { { x + dotWidth / 4, params.height, 0 }, Alpha(color, alpha) }
+					verts[#verts + 1] = { { x + dotWidth / 4, 0, 0 }, Alpha(color, alpha) }
+					verts[#verts + 1] = { { x - dotWidth / 4, 0, 0 }, Alpha(color, alpha) }
 				else
 					-- Everything else
 					setOffsetVerts(verts, x, y, Alpha(color, alpha))
 				end
-
 			end
 		end
 
 		self:SetVertices(verts)
-		self:SetDrawState{Mode="DrawMode_Quads", First = 1, Num = #verts}
+		self:SetDrawState { Mode = "DrawMode_Quads", First = 1, Num = #verts }
 	end,
 	JudgeDisplayChangedMessageCommand = function(self)
 		self:queuecommand("Update")
 	end
 }
 
-t[#t+1] = Def.Quad {
+t[#t + 1] = Def.Quad {
 	Name = "PosBG",
 	InitCommand = function(self)
-		self:valign(1):halign(1):zoomto(30,30):diffuse(color(".1,.1,.1,.45"))
+		self:valign(1):halign(1):zoomto(30, 30):diffuse(color(".1,.1,.1,.45"))
 		self:visible(false)
 	end
 }
 
-t[#t+1] = LoadFont("Common Normal") .. {
+t[#t + 1] = LoadFont("Common Normal") .. {
 	Name = "PosText",
 	InitCommand = function(self)
 		self:valign(1):halign(1):zoom(0.4)
 	end
 }
+
+
+
 
 return t

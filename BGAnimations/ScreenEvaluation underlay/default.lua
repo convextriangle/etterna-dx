@@ -54,6 +54,14 @@ local t = Def.ActorFrame {
 			transform(self)
 		end
 	},
+
+	-- duplicate for offset plot
+	LoadActor("player_hp_frame") .. {
+		InitCommand = function(self)
+			self:x(SCREEN_CENTER_X + 245.25):y(SCREEN_CENTER_Y + 106):draworder(2)
+			self:zoomx(0.56):zoomy(0.435)
+		end
+	},
 	LoadActor("player_info") .. {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X - 285):y(SCREEN_CENTER_Y - 150):draworder(1)
@@ -76,6 +84,15 @@ local t = Def.ActorFrame {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X - 50):y(SCREEN_BOTTOM - 20)
 			transform(self)
+		end
+	},
+
+	Def.Sprite {
+		OnCommand = function(self)
+			local banner = GAMESTATE:GetCurrentSong():GetBannerPath()
+			self:LoadBackground(banner)
+			self:xy(SCREEN_CENTER_X + 191, SCREEN_TOP + 47.25)
+			self:zoom(0.45)
 		end
 	},
 
