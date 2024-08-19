@@ -37,7 +37,7 @@ local t = Def.ActorFrame {
 			self:blend('BlendMode_Add'):pause();
 			self:zoomx(284 / 800);
 			self:zoomy(28 / 60);
-			self:addx(1.5);
+			self:addx(1);
 		end,
 		SetGradeCommand = function(self, params)
 			local state = grades[params.Grade];
