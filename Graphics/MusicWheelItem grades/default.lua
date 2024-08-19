@@ -43,27 +43,6 @@ local t = Def.ActorFrame {
 			local state = grades[params.Grade];
 			if state ~= nil then
 				self:visible(true);
-
-				-- no colors for all the midgrades so
-				-- just gonna use a single one for multiple
-
-				if state > 0 and state <= 3 then
-					state = 1;
-				elseif state <= 6 then
-					state = 2;
-				elseif state <= 9 then
-					state = 3;
-				elseif state <= 12 then
-					state = 4;
-				elseif state <= 15 then
-					state = 5;
-				elseif state == 16 then
-					state = 6;
-				else
-					state = 7;
-				end
-
-				state = state * 2;
 				self:setstate(state);
 			else
 				self:visible(false);
