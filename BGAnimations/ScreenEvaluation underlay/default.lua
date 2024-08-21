@@ -96,7 +96,7 @@ local t = Def.ActorFrame {
 		end
 	},
 
-	LoadFont("TextBanner text") .. {
+	LoadFont("01/01 24px") .. {
 		Text = "song",
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X):y(SCREEN_BOTTOM - 70):maxwidth(512):diffusealpha(0):sleep(.2):linear(.2)
