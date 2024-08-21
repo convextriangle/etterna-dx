@@ -7,6 +7,7 @@ return Def.ActorFrame {
         --GetChild gets an actor so you can put commands on it and get values from it too
         self:GetChild("bpmtxt"):horizalign(right)
         self:GetChild("bpmlbl"):horizalign(left)
+        self:zoom(0.75)
     end,
     CurrentSongChangedMessageCommand = function(self)
         local song = GAMESTATE:GetCurrentSong()
@@ -18,7 +19,11 @@ return Def.ActorFrame {
         --things
         local bpm = song:GetDisplayBpms()
         local text = ""
-        text = string.format("%d", bpm[1])
+        if bpm[1] == bpm[2] then
+            text = string.format("%d", bpm[1])
+        else
+            text = string.format("%d~%d", bpm[1], bpm[2])
+        end
         --setting the text
         self:diffusealpha(1)
         self:GetChild("bpmtxt"):settext(text);
