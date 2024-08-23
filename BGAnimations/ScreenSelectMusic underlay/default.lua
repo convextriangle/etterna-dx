@@ -1,5 +1,16 @@
 local screen
 
+local title_style = function(self)
+	local colors = {}
+	colors[1] = color("#FFFFFF")
+	colors[2] = color("#FFFFFF")
+	colors[3] = color("#232323")
+	colors[4] = color("#232323")
+
+	self:strokecolor(color("#000000"))
+	self:AddAttribute(0, { Length = -1, Diffuses = colors })
+end
+
 -- Difficulty selection banner, song subtitle, title and artist
 local t = Def.ActorFrame {
 	-- LoadActor("banner.png") .. {
@@ -145,15 +156,19 @@ local t = Def.ActorFrame {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 60):playcommand("Set"):horizalign(right):zoom(.9):zoomy(1)
 				:shadowlength(0):maxwidth(480)
+			title_style(self)
 		end,
 		OnCommand = function(self)
 			self:diffusealpha(0):linear(0.5):diffusealpha(1)
+			title_style(self)
 		end,
 		OffCommand = function(self)
 			self:linear(0.5):diffusealpha(0)
+			title_style(self)
 		end,
 		CurrentSongChangedMessageCommand = function(self)
 			self:finishtweening():playcommand("Set")
+			title_style(self)
 		end,
 		SetCommand = function(self)
 			local song = GAMESTATE:GetCurrentSong()
@@ -169,44 +184,9 @@ local t = Def.ActorFrame {
 			self:addx(5)
 			self:addy(-5)
 			self:diffusealpha(1)
+
 			self:settext(song:GetDisplayMainTitle())
-		end
-	},
-	LoadFont("01/01 48px") .. {
-		Text = "title",
-		InitCommand = function(self)
-			self:x(SCREEN_CENTER_X + 30):y(SCREEN_CENTER_Y - 60):playcommand("Set"):horizalign(right):zoom(.9):zoomy(1)
-				:shadowlength(0):maxwidth(480)
-		end,
-		OnCommand = function(self)
-			self:diffusealpha(0)
-		end,
-		OffCommand = function(self)
-			self:linear(0.5):diffusealpha(0)
-		end,
-		CurrentSonghangedMessageCommand = function(self)
-			self:finishtweening():playcommand("Set")
-		end,
-		SetCommand = function(self)
-			local song = GAMESTATE:GetCurrentSong()
-			if not song
-			then
-				self:visible(false)
-				return
-			end
-			self:visible(true)
-			self:blend('BlendMode_Add')
-			self:diffusealpha(0)
-			self:sleep(0.2)
-			self:linear(0.05)
-			self:diffusealpha(0.8)
-			self:linear(0.05)
-			self:diffusealpha(0)
-			self:linear(0.05)
-			self:diffusealpha(0.8)
-			self:linear(0.05)
-			self:diffusealpha(0)
-			self:settext(song:GetDisplayMainTitle())
+			title_style(self)
 		end
 	},
 };
