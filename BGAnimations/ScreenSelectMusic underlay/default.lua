@@ -7,7 +7,6 @@ local title_style = function(self)
 	colors[3] = color("#232323")
 	colors[4] = color("#232323")
 
-	self:strokecolor(color("#000000"))
 	self:AddAttribute(0, { Length = -1, Diffuses = colors })
 end
 
