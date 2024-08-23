@@ -115,36 +115,66 @@ end
 t[#t + 1] = Def.ActorFrame {
     InitCommand = function(self)
         -- children are relative to the center of the screen (relative to this position)
-        self:xy(SCREEN_CENTER_X + 250, SCREEN_CENTER_Y - 130)
-        self:zoom(0.85)
+        self:xy(SCREEN_CENTER_X + 250, SCREEN_CENTER_Y - 180)
+        self:zoom(0.9)
     end,
 
-    -- LoadFont("artist 16px") .. {
-    --     InitCommand = function(self)
-    --         self:valign(1)
-    --         self:settextf("%.6f%%", score:GetWifeScore() * 100)
-    --     end
-    -- },
-    -- LoadFont("artist 16px") .. {
-    --     InitCommand = function(self)
-    --         self:y(30)
-    --         self:settextf("%5.2f > %5.2f", steps:GetMSD(getCurRateValue(), 1), score:GetSkillsetSSR("Overall"))
-    --     end
-    -- },
-    -- LoadFont("artist 16px") .. {
-    --     InitCommand = function(self)
-    --         self:y(15):valign(0):zoom(.4)
-    --         self:settext(getRateString(getCurRateValue()))
-    --     end
-    -- },
-    -- LoadFont("artist 16px") .. {
-    --     InitCommand = function(self)
-    --         self:y(45):valign(0):zoom(.4)
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(15):valign(0):zoom(.4)
+            self:settext("RATE: " .. getRateString(getCurRateValue()))
+        end
+    },
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(34):zoom(.4)
+            self:settextf("MSD: %5.2f", steps:GetMSD(getCurRateValue(), 1))
+        end
+    },
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(45):valign(0):zoom(.4)
 
-    --         local str = string.format("Pack: %s", song:GetGroupName())
-    --         self:settext(str)
-    --     end
-    -- }
+            self:settextf("PACK: %s", song:GetGroupName())
+        end
+    },
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(60):valign(0):zoom(.4)
+
+            self:settextf("CHART AUTHOR: %s", song:GetOrTryAtLeastToGetSimfileAuthor())
+        end
+    },
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(75):valign(0):zoom(.4)
+
+            self:settextf("MEAN: %.2f ms", wifeMean(score:GetOffsetVector()))
+        end
+    },
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(90):valign(0):zoom(.4)
+
+            self:settextf("STANDARD DEVIATION: %.2f ms", wifeSd(score:GetOffsetVector()))
+        end
+    },
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(105):valign(0):zoom(.4)
+
+            self:settextf("MA: %.2f:1",
+                score:GetTapNoteScore("TapNoteScore_W1") / score:GetTapNoteScore("TapNoteScore_W2"))
+        end
+    },
+    LoadFont("handel/handel 24px") .. {
+        InitCommand = function(self)
+            self:y(120):valign(0):zoom(.4)
+
+            self:settextf("PA: %.2f:1",
+                score:GetTapNoteScore("TapNoteScore_W2") / score:GetTapNoteScore("TapNoteScore_W3"))
+        end
+    },
 }
 
 -- score stats
