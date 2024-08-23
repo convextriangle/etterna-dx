@@ -7,31 +7,31 @@ local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats()
 local score = pss:GetHighScore()
 
 local grades = {
-    Grade_Tier01 = "AAAA", -- AAAAA
+    Grade_Tier01 = "quint",  -- AAAAA
 
-    Grade_Tier02 = "AAA",  -- AAAA:
-    Grade_Tier03 = "AA",   -- AAAA.
-    Grade_Tier04 = "A",    -- AAAA
+    Grade_Tier02 = "quad",   -- AAAA:
+    Grade_Tier03 = "quad",   -- AAAA.
+    Grade_Tier04 = "quad",   -- AAAA
 
-    Grade_Tier05 = "B",    -- AAA:
-    Grade_Tier06 = "C",    -- AAA.
-    Grade_Tier07 = "D",    -- AAA
+    Grade_Tier05 = "triple", -- AAA:
+    Grade_Tier06 = "triple", -- AAA.
+    Grade_Tier07 = "triple", -- AAA
 
-    Grade_Tier08 = "E",    -- AA:
-    Grade_Tier09 = "F",    -- AA.
-    Grade_Tier10 = "F",    -- AA
+    Grade_Tier08 = "double", -- AA:
+    Grade_Tier09 = "double", -- AA.
+    Grade_Tier10 = "double", -- AA
 
-    Grade_Tier11 = "F",    -- A:
-    Grade_Tier12 = "F",    -- A.
-    Grade_Tier13 = "F",    -- A
+    Grade_Tier11 = "A",      -- A:
+    Grade_Tier12 = "A",      -- A.
+    Grade_Tier13 = "A",      -- A
 
-    Grade_Tier14 = "F",    -- B
-    Grade_Tier15 = "F",    -- C
-    Grade_Tier16 = "F",    -- D
+    Grade_Tier14 = "B",      -- B
+    Grade_Tier15 = "C",      -- C
+    Grade_Tier16 = "D",      -- D
 
-    Grade_Tier17 = "wtf",  -- ?????????
+    Grade_Tier17 = "E",      -- ?????????
 
-    Grade_Failed = "F",    -- F
+    Grade_Failed = "F",      -- F
 
     Grade_None = nil,
 };
@@ -121,7 +121,7 @@ t[#t + 1] = Def.ActorFrame {
         end
     },
 
-    LoadActor("grade/" .. grades[score:GetGrade()]) .. {
+    LoadActor("grade/" .. grades[score:GetWifeGrade()]) .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 285, SCREEN_CENTER_Y - 120):zoom(0.5):draworder(1)
         end,
@@ -136,7 +136,7 @@ t[#t + 1] = Def.ActorFrame {
     LoadFont("handel/handel 24px") .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 230, SCREEN_CENTER_Y - 44)
-            self:settext(grades[score:GetGrade()]):zoom(0.5)
+            self:settext(THEME:GetString("Grade", score:GetWifeGrade())):zoom(0.5)
         end
     },
     LoadFont("pattern_num") .. {

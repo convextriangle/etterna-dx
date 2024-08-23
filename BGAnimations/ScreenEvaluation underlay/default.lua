@@ -192,7 +192,7 @@ local t = Def.ActorFrame {
 			local banner = GAMESTATE:GetCurrentSong():GetBannerPath()
 			self:LoadBackground(banner)
 			self:xy(SCREEN_CENTER_X + 191, SCREEN_TOP + 47.25)
-			self:zoom(0.45)
+			self:zoomtowidth(115.2):zoomtoheight(36)
 		end
 	},
 
