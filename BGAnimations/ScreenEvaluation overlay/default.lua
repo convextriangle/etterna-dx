@@ -8,6 +8,8 @@ local score = pss:GetHighScore()
 
 local older_pb = nil
 local rateTable = getRateTable()
+
+-- there must be a better way to do this...
 for rate, high_score in pairs(rateTable[getRate(score)]) do
     if high_score == nil then
         break
