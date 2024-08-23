@@ -120,6 +120,12 @@ t[#t + 1] = Def.ActorFrame {
 
 -- score stats
 t[#t + 1] = Def.ActorFrame {
+    LoadActor("grade/" .. grades[score:GetGrade()]) .. {
+        InitCommand = function(self)
+            self:xy(SCREEN_CENTER_X - 285, SCREEN_CENTER_Y - 120):zoom(0.5):draworder(1)
+        end,
+    },
+
     LoadFont("handel/handel 24px") .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 230, SCREEN_CENTER_Y - 66)
