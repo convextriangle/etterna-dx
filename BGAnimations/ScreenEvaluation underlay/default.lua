@@ -235,7 +235,7 @@ local t = Def.ActorFrame {
 			self:visible(true)
 
 			local str = string.format("%s\n%s", song:GetDisplayArtist(), song:GetDisplayMainTitle())
-
+			self:maxwidth(350)
 			self:settext(str)
 		end
 	},
