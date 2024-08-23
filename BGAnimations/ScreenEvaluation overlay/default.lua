@@ -5,6 +5,7 @@ local song = GAMESTATE:GetCurrentSong()
 local steps = GAMESTATE:GetCurrentSteps()
 local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats()
 local score = pss:GetHighScore()
+local older_stats = STATSMAN:GetPlayedStageStats(2)
 
 local grades = {
     Grade_Tier01 = "quint",  -- AAAAA
@@ -74,6 +75,18 @@ local difficulty = {
     Difficulty_Challenge = "INSANE",
     Difficulty_Edit = "EDIT",
 };
+
+local get_signed = function(number, float)
+    local sign = ""
+    if number >= 0 then
+        sign = "+"
+    end
+
+    if float then
+        return sign .. string.format("%.2f", number)
+    end
+    return sign .. string.format("%d", number)
+end
 
 -- song info
 t[#t + 1] = Def.ActorFrame {
@@ -164,20 +177,14 @@ t[#t + 1] = Def.ActorFrame {
     LoadFont("pattern_num") .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 230, SCREEN_CENTER_Y + 56)
-            self:settextf("93%%", score:GetWifeScore() * 100):zoom(0.5)
+            self:settextf("93%%"):zoom(0.5)
         end
     },
 
     LoadFont("pattern_num") .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 230, SCREEN_CENTER_Y + 72)
-
-            local sign = ""
-            if score:GetWifeScore() * 100 >= 93 then
-                sign = "+"
-            end
-
-            self:settextf(sign .. "%.2f%%", score:GetWifeScore() * 100 - 93):zoom(0.3)
+            self:settextf(get_signed(score:GetWifeScore() * 100 - 93, true) .. "%%"):zoom(0.3)
         end
     },
 
@@ -244,5 +251,116 @@ t[#t + 1] = Def.ActorFrame {
         end
     },
 }
+
+-- older score stats
+
+if older_stats ~= nil then
+    local older_pss = older_stats:GetPlayerStageStats()
+    local older_score = older_pss:GetHighScore()
+    t[#t + 1] = Def.ActorFrame {
+        LoadFont("handel/handel 24px") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 66)
+                self:settext(clear[older_score:GetGrade()]):zoom(0.5)
+            end,
+        },
+        LoadFont("handel/handel 24px") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 44)
+                self:settext(THEME:GetString("Grade", older_score:GetWifeGrade())):zoom(0.5)
+            end
+        },
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 14.5)
+                self:settextf("%.2f", older_score:GetSkillsetSSR("Overall")):zoom(0.45)
+            end
+        },
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 5)
+                self:settextf("%.2f%%", older_score:GetWifeScore() * 100):zoom(0.3)
+            end
+        },
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                local cb_count = older_pss:GetTapNoteScores('TapNoteScore_W4') +
+                    older_pss:GetTapNoteScores('TapNoteScore_W5') +
+                    older_pss:GetTapNoteScores('TapNoteScore_Miss')
+
+                self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 24)
+                self:settextf("%d", cb_count):zoom(0.5)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 56)
+                self:settextf("93%%"):zoom(0.5)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 72)
+                self:settextf(get_signed(older_score:GetWifeScore() * 100 - 93, true) .. "%%"):zoom(0.3)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 101)
+                self:settextf(
+                    get_signed(pss:GetTapNoteScores('TapNoteScore_W1') - older_pss:GetTapNoteScores('TapNoteScore_W1'),
+                        false)):zoom(0.5)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 118)
+                self:settextf(get_signed(
+                    pss:GetTapNoteScores('TapNoteScore_W2') - older_pss:GetTapNoteScores('TapNoteScore_W2'),
+                    false)):zoom(0.5)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 133)
+                self:settextf(get_signed(
+                    pss:GetTapNoteScores('TapNoteScore_W3') - older_pss:GetTapNoteScores('TapNoteScore_W3'),
+                    false)):zoom(0.5)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 149)
+                self:settextf(get_signed(
+                    pss:GetTapNoteScores('TapNoteScore_W4') - older_pss:GetTapNoteScores('TapNoteScore_W4'),
+                    false)):zoom(0.5)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 164)
+                self:settextf(get_signed(
+                    pss:GetTapNoteScores('TapNoteScore_W5') - older_pss:GetTapNoteScores('TapNoteScore_W5'),
+                    false)):zoom(0.5)
+            end
+        },
+
+        LoadFont("pattern_num") .. {
+            InitCommand = function(self)
+                self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 180)
+                self:settextf(get_signed(
+                    pss:GetTapNoteScores('TapNoteScore_Miss') - older_pss:GetTapNoteScores('TapNoteScore_Miss'),
+                    false)):zoom(0.5)
+            end
+        },
+    }
+end
 
 return t

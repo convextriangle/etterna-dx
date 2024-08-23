@@ -9,100 +9,100 @@ local t = Def.ActorFrame {
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 10):zoom(0.8):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 44):zoom(0.8):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 66):zoom(0.8):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 24):zoom(0.8):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 56):zoom(0.8):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 255, SCREEN_CENTER_Y + 102):zoom(0.6):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 255, SCREEN_CENTER_Y + 117):zoom(0.6):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 255, SCREEN_CENTER_Y + 132):zoom(0.6):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 255, SCREEN_CENTER_Y + 148):zoom(0.6):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 255, SCREEN_CENTER_Y + 164):zoom(0.6):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("score_no") .. {
 		InitCommand = function(self)
 			self:xy(SCREEN_CENTER_X - 255, SCREEN_CENTER_Y + 180):zoom(0.6):draworder(2)
+			if STATSMAN:GetPlayedStageStats(2) ~= nil then
+				self:visible(false)
+			end
 		end,
-		HidePreviousScoreCommand = function(self)
-			self:visible(false)
-		end
 	},
 
 	LoadActor("epic_triangle") .. {
