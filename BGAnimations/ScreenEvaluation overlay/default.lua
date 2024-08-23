@@ -5,7 +5,28 @@ local song = GAMESTATE:GetCurrentSong()
 local steps = GAMESTATE:GetCurrentSteps()
 local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats()
 local score = pss:GetHighScore()
-local older_stats = STATSMAN:GetPlayedStageStats(2)
+
+local older_pb = nil
+local rateTable = getRateTable()
+for rate, high_score in pairs(rateTable[getRate(score)]) do
+    if high_score == nil then
+        break
+    end
+
+    if older_pb == nil then
+        if score:GetWifePoints() ~= high_score:GetWifePoints() then
+            older_pb = high_score
+        end
+        goto continue
+    end
+
+    local current = high_score:GetWifeScore()
+    local older = older_pb:GetWifeScore()
+    if current > older and score:GetWifePoints() ~= high_score:GetWifePoints() then
+        older_pb = high_score
+    end
+    ::continue::
+end
 
 local grades = {
     Grade_Tier01 = "quint",  -- AAAAA
@@ -46,17 +67,17 @@ local clear = {
 
     Grade_Tier05 = "CLEAR",  -- AAA:
     Grade_Tier06 = "CLEAR",  -- AAA.
-    Grade_Tier07 = "FAILED", -- AAA
+    Grade_Tier07 = "CLEAR",  -- AAA
 
-    Grade_Tier08 = "FAILED", -- AA:
-    Grade_Tier09 = "FAILED", -- AA.
-    Grade_Tier10 = "FAILED", -- AA
+    Grade_Tier08 = "CLEAR",  -- AA:
+    Grade_Tier09 = "CLEAR",  -- AA.
+    Grade_Tier10 = "CLEAR",  -- AA
 
-    Grade_Tier11 = "FAILED", -- A:
-    Grade_Tier12 = "FAILED", -- A.
-    Grade_Tier13 = "FAILED", -- A
+    Grade_Tier11 = "CLEAR",  -- A:
+    Grade_Tier12 = "CLEAR",  -- A.
+    Grade_Tier13 = "CLEAR",  -- A
 
-    Grade_Tier14 = "FAILED", -- B
+    Grade_Tier14 = "CLEAR",  -- B
     Grade_Tier15 = "FAILED", -- C
     Grade_Tier16 = "FAILED", -- D
 
@@ -143,7 +164,7 @@ t[#t + 1] = Def.ActorFrame {
     LoadFont("handel/handel 24px") .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 230, SCREEN_CENTER_Y - 66)
-            self:settext(clear[score:GetGrade()]):zoom(0.5)
+            self:settext(clear[score:GetWifeGrade()]):zoom(0.5)
         end
     },
     LoadFont("handel/handel 24px") .. {
@@ -254,39 +275,37 @@ t[#t + 1] = Def.ActorFrame {
 
 -- older score stats
 
-if older_stats ~= nil then
-    local older_pss = older_stats:GetPlayerStageStats()
-    local older_score = older_pss:GetHighScore()
+if older_pb ~= nil then
     t[#t + 1] = Def.ActorFrame {
         LoadFont("handel/handel 24px") .. {
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 66)
-                self:settext(clear[older_score:GetGrade()]):zoom(0.5)
+                self:settext(clear[older_pb:GetWifeGrade()]):zoom(0.5)
             end,
         },
         LoadFont("handel/handel 24px") .. {
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 44)
-                self:settext(THEME:GetString("Grade", older_score:GetWifeGrade())):zoom(0.5)
+                self:settext(THEME:GetString("Grade", older_pb:GetWifeGrade())):zoom(0.5)
             end
         },
         LoadFont("pattern_num") .. {
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 14.5)
-                self:settextf("%.2f", older_score:GetSkillsetSSR("Overall")):zoom(0.45)
+                self:settextf("%.2f", older_pb:GetSkillsetSSR("Overall")):zoom(0.45)
             end
         },
         LoadFont("pattern_num") .. {
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y - 5)
-                self:settextf("%.2f%%", older_score:GetWifeScore() * 100):zoom(0.3)
+                self:settextf("%.2f%%", older_pb:GetWifeScore() * 100):zoom(0.3)
             end
         },
         LoadFont("pattern_num") .. {
             InitCommand = function(self)
-                local cb_count = older_pss:GetTapNoteScores('TapNoteScore_W4') +
-                    older_pss:GetTapNoteScores('TapNoteScore_W5') +
-                    older_pss:GetTapNoteScores('TapNoteScore_Miss')
+                local cb_count = older_pb:GetTapNoteScore('TapNoteScore_W4') +
+                    older_pb:GetTapNoteScore('TapNoteScore_W5') +
+                    older_pb:GetTapNoteScore('TapNoteScore_Miss')
 
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 24)
                 self:settextf("%d", cb_count):zoom(0.5)
@@ -303,7 +322,7 @@ if older_stats ~= nil then
         LoadFont("pattern_num") .. {
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 72)
-                self:settextf(get_signed(older_score:GetWifeScore() * 100 - 93, true) .. "%%"):zoom(0.3)
+                self:settextf(get_signed(older_pb:GetWifeScore() * 100 - 93, true) .. "%%"):zoom(0.3)
             end
         },
 
@@ -311,7 +330,7 @@ if older_stats ~= nil then
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 101)
                 self:settextf(
-                    get_signed(pss:GetTapNoteScores('TapNoteScore_W1') - older_pss:GetTapNoteScores('TapNoteScore_W1'),
+                    get_signed(pss:GetTapNoteScores('TapNoteScore_W1') - older_pb:GetTapNoteScore('TapNoteScore_W1'),
                         false)):zoom(0.5)
             end
         },
@@ -320,7 +339,7 @@ if older_stats ~= nil then
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 118)
                 self:settextf(get_signed(
-                    pss:GetTapNoteScores('TapNoteScore_W2') - older_pss:GetTapNoteScores('TapNoteScore_W2'),
+                    pss:GetTapNoteScores('TapNoteScore_W2') - older_pb:GetTapNoteScore('TapNoteScore_W2'),
                     false)):zoom(0.5)
             end
         },
@@ -329,7 +348,7 @@ if older_stats ~= nil then
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 133)
                 self:settextf(get_signed(
-                    pss:GetTapNoteScores('TapNoteScore_W3') - older_pss:GetTapNoteScores('TapNoteScore_W3'),
+                    pss:GetTapNoteScores('TapNoteScore_W3') - older_pb:GetTapNoteScore('TapNoteScore_W3'),
                     false)):zoom(0.5)
             end
         },
@@ -338,7 +357,7 @@ if older_stats ~= nil then
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 149)
                 self:settextf(get_signed(
-                    pss:GetTapNoteScores('TapNoteScore_W4') - older_pss:GetTapNoteScores('TapNoteScore_W4'),
+                    pss:GetTapNoteScores('TapNoteScore_W4') - older_pb:GetTapNoteScore('TapNoteScore_W4'),
                     false)):zoom(0.5)
             end
         },
@@ -347,7 +366,7 @@ if older_stats ~= nil then
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 164)
                 self:settextf(get_signed(
-                    pss:GetTapNoteScores('TapNoteScore_W5') - older_pss:GetTapNoteScores('TapNoteScore_W5'),
+                    pss:GetTapNoteScores('TapNoteScore_W5') - older_pb:GetTapNoteScore('TapNoteScore_W5'),
                     false)):zoom(0.5)
             end
         },
@@ -356,7 +375,7 @@ if older_stats ~= nil then
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 250, SCREEN_CENTER_Y + 180)
                 self:settextf(get_signed(
-                    pss:GetTapNoteScores('TapNoteScore_Miss') - older_pss:GetTapNoteScores('TapNoteScore_Miss'),
+                    pss:GetTapNoteScores('TapNoteScore_Miss') - older_pb:GetTapNoteScore('TapNoteScore_Miss'),
                     false)):zoom(0.5)
             end
         },
