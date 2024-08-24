@@ -9,7 +9,6 @@ local nrv = pss:GetNoteRowVector()
 local dvt = pss:GetOffsetVector()
 local ctt = pss:GetTrackVector()
 local ntt = pss:GetTapNoteTypeVector()
-local totalTaps = pss:GetTotalTaps()
 
 local frameWidth = SCREEN_CENTER_X - WideScale(get43size(40), 40)
 local frameHeight = 300
@@ -122,24 +121,6 @@ t[#t + 1] = LoadActor(THEME:GetPathG("", "OffsetGraph")) .. {
 		self:stoptweening()
 		self:x(offsetParamX + 100)
 		self:diffusealpha(0)
-	end
-}
-
--- Missing noterows text
-t[#t + 1] = LoadFont("Common Normal") .. {
-	InitCommand = function(self)
-		self:xy(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT * 3 / 4)
-		self:settext("Missing Noterows from Online Replay\n(゜´Д｀゜)")
-		self:zoom(0.4)
-		self:diffuse(color(colorConfig:get_data().selectMusic.TabContentText)):diffusealpha(0.6)
-		self:visible(false)
-	end,
-	DelayedShowOffsetMessageCommand = function(self)
-		if scoreList[offsetIndex]:GetNoteRowVector() == nil then
-			self:visible(true)
-		else
-			self:visible(false)
-		end
 	end
 }
 

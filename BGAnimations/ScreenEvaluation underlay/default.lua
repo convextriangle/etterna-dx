@@ -213,7 +213,9 @@ local t = Def.ActorFrame {
 	Def.Sprite {
 		OnCommand = function(self)
 			local banner = GAMESTATE:GetCurrentSong():GetBannerPath()
-			self:LoadBackground(banner)
+			if banner ~= nil then
+				self:LoadBackground(banner)
+			end
 			self:xy(SCREEN_CENTER_X + 191, SCREEN_TOP + 47.25)
 			self:zoomtowidth(115.2):zoomtoheight(36)
 		end

@@ -177,6 +177,11 @@ t[#t + 1] = Def.ActorFrame {
     },
 }
 
+local target = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).TargetGoal
+if target == nil then
+    target = 93
+end
+
 -- score stats
 t[#t + 1] = Def.ActorFrame {
     LoadFont("handel/handel 24px") .. {
@@ -230,14 +235,14 @@ t[#t + 1] = Def.ActorFrame {
     LoadFont("pattern_num") .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 230, SCREEN_CENTER_Y + 56)
-            self:settextf("93%%"):zoom(0.5)
+            self:settextf("%.2f%%", target):zoom(0.5)
         end
     },
 
     LoadFont("pattern_num") .. {
         InitCommand = function(self)
             self:xy(SCREEN_CENTER_X - 230, SCREEN_CENTER_Y + 72)
-            self:settextf(get_signed(score:GetWifeScore() * 100 - 93, true) .. "%%"):zoom(0.3)
+            self:settextf(get_signed(score:GetWifeScore() * 100 - target, true) .. "%%"):zoom(0.3)
         end
     },
 
@@ -347,14 +352,14 @@ if older_pb ~= nil then
         LoadFont("pattern_num") .. {
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 56)
-                self:settextf("93%%"):zoom(0.5)
+                self:settextf("%.2f%%", target):zoom(0.5)
             end
         },
 
         LoadFont("pattern_num") .. {
             InitCommand = function(self)
                 self:xy(SCREEN_CENTER_X - 310, SCREEN_CENTER_Y + 72)
-                self:settextf(get_signed(older_pb:GetWifeScore() * 100 - 93, true) .. "%%"):zoom(0.3)
+                self:settextf(get_signed(older_pb:GetWifeScore() * 100 - target, true) .. "%%"):zoom(0.3)
             end
         },
 

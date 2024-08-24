@@ -136,7 +136,7 @@ t[#t + 1] = Def.Quad {
 	Name = "Background",
 	InitCommand = function(self)
 		self:halign(0):valign(0)
-		self:diffuse(getMainColor("frame")):diffusealpha(0.7)
+		self:diffuse(color("#232323")):diffusealpha(0.7)
 	end,
 	UpdateCommand = function(self, params)
 		setWidth = params.width
