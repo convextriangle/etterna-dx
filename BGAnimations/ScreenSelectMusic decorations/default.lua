@@ -5,8 +5,8 @@ t[#t + 1] = StandardDecorationFromFileOptional("BPMDisplay", "BPMDisplay");
 t[#t + 1] = StandardDecorationFromFileOptional("TotalTime", "TotalTime");
 t[#t + 1] = StandardDecorationFromFileOptional("DifficultyList", "DifficultyList");
 
---t[#t+1] = LoadActor("song_search");
---t[#t+1] = LoadActor("song_info");
+t[#t + 1] = LoadActor("song_search");
+t[#t + 1] = LoadActor("song_info");
 t[#t + 1] = LoadActor("tabs");
 --t[#t+1] = LoadActor("profile");
 
