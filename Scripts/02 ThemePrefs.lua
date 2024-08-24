@@ -205,6 +205,34 @@ function DisplayPercent()
 	return t
 end
 
+function DisplayMean()
+	local t = {
+		Name = "DisplayMean",
+		LayoutType = "ShowAllInRow",
+		SelectType = "SelectOne",
+		OneChoiceForAllPlayers = false,
+		ExportOnChange = true,
+		Choices = {THEME:GetString("OptionNames", "Off"), THEME:GetString("OptionNames", "On")},
+		LoadSelections = function(self, list, pn)
+			local pref = playerConfig:get_data(pn_to_profile_slot(pn)).DisplayMean
+			if pref then
+				list[2] = true
+			else
+				list[1] = true
+			end
+		end,
+		SaveSelections = function(self, list, pn)
+			local value
+			value = list[2]
+			playerConfig:get_data(pn_to_profile_slot(pn)).DisplayMean = value
+			playerConfig:set_dirty(pn_to_profile_slot(pn))
+			playerConfig:save(pn_to_profile_slot(pn))
+		end
+	}
+	setmetatable(t, t)
+	return t
+end
+
 function TargetTracker()
 	local t = {
 		Name = "TargetTracker",
@@ -660,50 +688,6 @@ function BackgroundType()
 	return t
 end
 
-function DefaultScoreType()
-	local t = {
-		Name = "DefaultScoreType",
-		LayoutType = "ShowAllInRow",
-		SelectType = "SelectOne",
-		OneChoiceForAllPlayers = true,
-		ExportOnChange = true,
-		Choices = {"DP", "PS", "MIGS", "Wife", "Waifu"},
-		LoadSelections = function(self, list, pn)
-			local pref = themeConfig:get_data().global.DefaultScoreType
-			if pref == 1 then
-				list[1] = true
-			elseif pref == 2 then
-				list[2] = true
-			elseif pref == 3 then
-				list[3] = true
-			elseif pref == 4 then
-				list[4] = true
-			else
-				list[5] = true
-			end
-		end,
-		SaveSelections = function(self, list, pn)
-			local value
-			if list[1] == true then
-				value = 1
-			elseif list[2] == true then
-				value = 2
-			elseif list[3] == true then
-				value = 3
-			elseif list[4] == true then
-				value = 4
-			else
-				value = 5
-			end
-			themeConfig:get_data().global.DefaultScoreType = value
-			themeConfig:set_dirty()
-			themeConfig:save()
-		end
-	}
-	setmetatable(t, t)
-	return t
-end
-
 function TipType()
 	local t = {
 		Name = "TipType",
@@ -744,108 +728,36 @@ function TipType()
 	return t
 end
 
-function SongBGEnabled()
-	local t = {
-		Name = "SongBGEnabled",
-		LayoutType = "ShowAllInRow",
-		SelectType = "SelectOne",
-		OneChoiceForAllPlayers = true,
-		ExportOnChange = true,
-		Choices = {THEME:GetString("OptionNames", "Off"), THEME:GetString("OptionNames", "On")},
-		LoadSelections = function(self, list, pn)
-			local pref = themeConfig:get_data().global.SongBGEnabled
-			if pref then
-				list[2] = true
-			else
-				list[1] = true
-			end
-		end,
-		SaveSelections = function(self, list, pn)
-			local value
-			if list[1] then
-				value = false
-			else
-				value = true
-			end
-			themeConfig:get_data().global.SongBGEnabled = value
-			themeConfig:set_dirty()
-			themeConfig:save()
-		end
-	}
-	setmetatable(t, t)
-	return t
-end
-
-function SongBGMouseEnabled()
-	local t = {
-		Name = "SongBGMouseEnabled",
-		LayoutType = "ShowAllInRow",
-		SelectType = "SelectOne",
-		OneChoiceForAllPlayers = true,
-		ExportOnChange = true,
-		Choices = {THEME:GetString("OptionNames", "Off"), THEME:GetString("OptionNames", "On")},
-		LoadSelections = function(self, list, pn)
-			local pref = themeConfig:get_data().global.SongBGMouseEnabled
-			if pref then
-				list[2] = true
-			else
-				list[1] = true
-			end
-		end,
-		SaveSelections = function(self, list, pn)
-			local value
-			if list[1] then
-				value = false
-			else
-				value = true
-			end
-			themeConfig:get_data().global.SongBGMouseEnabled = value
-			themeConfig:set_dirty()
-			themeConfig:save()
-		end
-	}
-	setmetatable(t, t)
-	return t
-end
-
-function EvalBGType()
-	local t = {
-		Name = "EvalBGType",
-		LayoutType = "ShowAllInRow",
-		SelectType = "SelectOne",
-		OneChoiceForAllPlayers = true,
-		ExportOnChange = true,
-		Choices = {
-			THEME:GetString("OptionNames", "SongBackground"),
-			THEME:GetString("OptionNames", "ClearGradeBackground"),
-			THEME:GetString("OptionNames", "GradeBackground")
-		},
-		LoadSelections = function(self, list, pn)
-			local pref = themeConfig:get_data().eval.SongBGType
-			if pref == 1 then
-				list[1] = true
-			elseif pref == 2 then
-				list[2] = true
-			else
-				list[3] = true
-			end
-		end,
-		SaveSelections = function(self, list, pn)
-			local value
-			if list[1] == true then
-				value = 1
-			elseif list[2] == true then
-				value = 2
-			else
-				value = 3
-			end
-			themeConfig:get_data().eval.SongBGType = value
-			themeConfig:set_dirty()
-			themeConfig:save()
-		end
-	}
-	setmetatable(t, t)
-	return t
+function ShowBanners()
+    local t = {
+        Name = "ShowBanners",
+        LayoutType = "ShowAllInRow",
+        SelectType = "SelectOne",
+        OneChoiceForAllPlayers = true,
+        ExportOnChange = true,
+        Choices = {THEME:GetString("OptionNames", "Off"), THEME:GetString("OptionNames", "On")},
+        LoadSelections = function(self, list, pn)
+            local pref = themeConfig:get_data().global.ShowBanners
+            if pref then
+                list[2] = true
+            else
+                list[1] = true
+            end
+        end,
+        SaveSelections = function(self, list, pn)
+            local value
+            if list[1] then
+                value = false
+            else
+                value = true
+            end
+            themeConfig:get_data().global.ShowBanners = value
+            themeConfig:set_dirty()
+            themeConfig:save()
+        end
+    }
+    setmetatable(t, t)
+    return t
 end
 
 function Particles()

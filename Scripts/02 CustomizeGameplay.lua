@@ -1,10 +1,6 @@
--- from spawncamping-wallhack
-
 local keymode
 local allowedCustomization
 local usingReverse
-local WIDESCREENWHY = -5
-local WIDESCREENWHX = -5
 
 MovableValues = {}
 
@@ -24,9 +20,18 @@ local function loadValuesTable()
 	MovableValues.TargetTrackerX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].TargetTrackerX
 	MovableValues.TargetTrackerY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].TargetTrackerY
 	MovableValues.TargetTrackerZoom = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].TargetTrackerZoom
+	MovableValues.FullProgressBarX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].FullProgressBarX
+	MovableValues.FullProgressBarY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].FullProgressBarY
+	MovableValues.FullProgressBarWidth = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].FullProgressBarWidth
+	MovableValues.FullProgressBarHeight = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].FullProgressBarHeight
+	MovableValues.MiniProgressBarX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].MiniProgressBarX
+	MovableValues.MiniProgressBarY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].MiniProgressBarY
 	MovableValues.DisplayPercentX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].DisplayPercentX
 	MovableValues.DisplayPercentY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].DisplayPercentY
 	MovableValues.DisplayPercentZoom = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].DisplayPercentZoom
+	MovableValues.DisplayMeanX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].DisplayMeanX
+	MovableValues.DisplayMeanY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].DisplayMeanY
+	MovableValues.DisplayMeanZoom = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].DisplayMeanZoom
 	MovableValues.NotefieldX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].NotefieldX
 	MovableValues.NotefieldY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].NotefieldY
 	MovableValues.NotefieldWidth = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].NotefieldWidth
@@ -34,6 +39,10 @@ local function loadValuesTable()
 	MovableValues.NotefieldSpacing = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].NotefieldSpacing
 	MovableValues.JudgeCounterX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].JudgeCounterX
 	MovableValues.JudgeCounterY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].JudgeCounterY
+	MovableValues.ReplayButtonsX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].ReplayButtonsX
+	MovableValues.ReplayButtonsY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].ReplayButtonsY
+	MovableValues.ReplayButtonsSpacing = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].ReplayButtonsSpacing
+	MovableValues.ReplayButtonsZoom = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].ReplayButtonsZoom
 	MovableValues.NPSGraphX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].NPSGraphX
 	MovableValues.NPSGraphY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].NPSGraphY
 	MovableValues.NPSGraphWidth = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].NPSGraphWidth
@@ -46,28 +55,25 @@ local function loadValuesTable()
 	MovableValues.LeaderboardSpacing = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].LeaderboardSpacing
 	MovableValues.LeaderboardWidth = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].LeaderboardWidth
 	MovableValues.LeaderboardHeight = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].LeaderboardHeight
-	MovableValues.PlayerInfoP1X = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].PlayerInfoP1X
-	MovableValues.PlayerInfoP1Y = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].PlayerInfoP1Y
-	MovableValues.PlayerInfoP1Width = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].PlayerInfoP1Width
-	MovableValues.PlayerInfoP1Height = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].PlayerInfoP1Height
+	MovableValues.LifeP1X = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].LifeP1X
+	MovableValues.LifeP1Y = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].LifeP1Y
+	MovableValues.LifeP1Rotation = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].LifeP1Rotation
+	MovableValues.LifeP1Width = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].LifeP1Width
+	MovableValues.LifeP1Height = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].LifeP1Height
 	MovableValues.PracticeCDGraphX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].PracticeCDGraphX
 	MovableValues.PracticeCDGraphY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].PracticeCDGraphY
+	MovableValues.PracticeCDGraphHeight = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].PracticeCDGraphHeight
+	MovableValues.PracticeCDGraphWidth = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].PracticeCDGraphWidth
 	MovableValues.BPMTextX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].BPMTextX
 	MovableValues.BPMTextY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].BPMTextY
 	MovableValues.BPMTextZoom = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].BPMTextZoom
 	MovableValues.MusicRateX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].MusicRateX
 	MovableValues.MusicRateY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].MusicRateY
 	MovableValues.MusicRateZoom = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].MusicRateZoom
-	MovableValues.DisplayMeanX = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].DisplayMeanX
-	MovableValues.DisplayMeanY = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplayXYCoordinates[keymode].DisplayMeanY
-	MovableValues.DisplayMeanZoom = playerConfig:get_data(pn_to_profile_slot(PLAYER_1)).GameplaySizes[keymode].DisplayMeanZoom
+end
 
-	if IsUsingWideScreen() then
-		MovableValues.TargetTrackerY = MovableValues.TargetTrackerY + WIDESCREENWHY
-		MovableValues.TargetTrackerX = MovableValues.TargetTrackerX - WIDESCREENWHX
-		MovableValues.JudgeY = MovableValues.JudgeY - 5
-		MovableValues.JudgeX = MovableValues.JudgeX + 5
-	end
+function unsetMovableKeymode()
+	MovableValues = {}
 end
 
 function setMovableKeymode(key)
@@ -265,6 +271,76 @@ Movable = {
 		DeviceButton_down = {
 			property = "Zoom",
 			inc = -0.01
+		}
+	},
+	DeviceButton_9 = {
+		name = "FullProgressBar",
+		textHeader = "Full Progress Bar Position:",
+		element = {},
+		properties = {"X", "Y"},
+		elementTree = "GameplayXYCoordinates",
+		DeviceButton_up = {
+			property = "Y",
+			inc = -3
+		},
+		DeviceButton_down = {
+			property = "Y",
+			inc = 3
+		},
+		DeviceButton_left = {
+			property = "X",
+			inc = -5
+		},
+		DeviceButton_right = {
+			property = "X",
+			inc = 5
+		}
+	},
+	DeviceButton_0 = {
+		name = "FullProgressBar",
+		textHeader = "Full Progress Bar Size:",
+		element = {},
+		properties = {"Width", "Height"},
+		elementTree = "GameplaySizes",
+		noBorder = true,
+		DeviceButton_up = {
+			property = "Height",
+			inc = 0.1
+		},
+		DeviceButton_down = {
+			property = "Height",
+			inc = -0.1
+		},
+		DeviceButton_left = {
+			property = "Width",
+			inc = -0.01
+		},
+		DeviceButton_right = {
+			property = "Width",
+			inc = 0.01
+		}
+	},
+	DeviceButton_q = {
+		name = "MiniProgressBar",
+		textHeader = "Mini Progress Bar Position:",
+		element = {},
+		properties = {"X", "Y"},
+		elementTree = "GameplayXYCoordinates",
+		DeviceButton_up = {
+			property = "Y",
+			inc = -5
+		},
+		DeviceButton_down = {
+			property = "Y",
+			inc = 5
+		},
+		DeviceButton_left = {
+			property = "X",
+			inc = -5
+		},
+		DeviceButton_right = {
+			property = "X",
+			inc = 5
 		}
 	},
 	DeviceButton_w = {
@@ -527,11 +603,68 @@ Movable = {
 			inc = 0.3
 		},
 	},
-	DeviceButton_j = {
-		name = "PlayerInfoP1",
-		textHeader = "PlayerInfo Position:",
+	DeviceButton_f = {
+		name = "ReplayButtons",
+		textHeader = "Replay Buttons Position:",
+		element = {},
+		properties = {"X", "Y"},
+		elementTree = "GameplayXYCoordinates",
+		condition = false,
+		DeviceButton_up = {
+			property = "Y",
+			inc = -3
+		},
+		DeviceButton_down = {
+			property = "Y",
+			inc = 3
+		},
+		DeviceButton_left = {
+			property = "X",
+			inc = -3
+		},
+		DeviceButton_right = {
+			property = "X",
+			inc = 3
+		}
+	},--[[
+	DeviceButton_g = {
+		name = "ReplayButtons",
+		textHeader = "Replay Buttons Size:",
 		element = {},
 		noBorder = true,
+		properties = {"Zoom"},
+		elementTree = "GameplaySizes",
+		condition = false,
+		DeviceButton_up = {
+			property = "Zoom",
+			inc = 0.01
+		},
+		DeviceButton_down = {
+			property = "Zoom",
+			inc = -0.01
+		}
+	},]]
+	DeviceButton_h = {
+		name = "ReplayButtons",
+		textHeader = "Replay Buttons Spacing:",
+		properties = {"Spacing"},
+		elementTree = "GameplaySizes",
+		condition = false,
+		DeviceButton_up = {
+			arbitraryInc = true,
+			property = "Spacing",
+			inc = -0.5
+		},
+		DeviceButton_down = {
+			arbitraryInc = true,
+			property = "Spacing",
+			inc = 0.5
+		},
+	},
+	DeviceButton_j = {
+		name = "LifeP1",
+		textHeader = "Lifebar Position:",
+		element = {},
 		properties = {"X", "Y"},
 		-- propertyOffsets = {"178", "10"},
 		elementTree = "GameplayXYCoordinates",
@@ -553,19 +686,19 @@ Movable = {
 		}
 	},
 	DeviceButton_k = {
-		name = "PlayerInfoP1",
-		textHeader = "PlayerInfo Size:",
+		name = "LifeP1",
+		textHeader = "Lifebar Size:",
 		properties = {"Width", "Height"},
 		element = {},
-		noBorder = true,
 		elementTree = "GameplaySizes",
+		noBorder = true,
 		DeviceButton_up = {
 			property = "Height",
-			inc = 0.01
+			inc = 0.1
 		},
 		DeviceButton_down = {
 			property = "Height",
-			inc = -0.01
+			inc = -0.1
 		},
 		DeviceButton_left = {
 			property = "Width",
@@ -576,6 +709,69 @@ Movable = {
 			inc = 0.01
 		}
 	},
+	DeviceButton_l = {
+		name = "LifeP1",
+		textHeader = "Lifebar Rotation:",
+		properties = {"Rotation"},
+		element = {},
+		elementTree = "GameplayXYCoordinates",
+		DeviceButton_up = {
+			property = "Rotation",
+			inc = -1
+		},
+		DeviceButton_down = {
+			property = "Rotation",
+			inc = 1
+		},
+	},
+	DeviceButton_z = {
+		name = "PracticeCDGraph",
+		textHeader = "Chord Density Graph Position:",
+		properties = {"X","Y"},
+		element = {},
+		elementTree = "GameplayXYCoordinates",
+		propertyOffsets = nil,
+		DeviceButton_up = {
+			property = "Y",
+			inc = -3
+		},
+		DeviceButton_down = {
+			property = "Y",
+			inc = 3
+		},
+		DeviceButton_left = {
+			property = "X",
+			inc = -3
+		},
+		DeviceButton_right = {
+			property = "X",
+			inc = 3
+		}
+	},
+	--[[DeviceButton_x = {
+		name = "PracticeCDGraph",
+		textHeader = "Chord Density Graph Size:",
+		properties = {"Width", "Height"},
+		element = {},
+		elementTree = "GameplaySizes",
+		propertyOffsets = nil,
+		DeviceButton_up = {
+			property = "Height",
+			inc = 0.1
+		},
+		DeviceButton_down = {
+			property = "Height",
+			inc = -0.1
+		},
+		DeviceButton_left = {
+			property = "Width",
+			inc = -0.01
+		},
+		DeviceButton_right = {
+			property = "Width",
+			inc = 0.01
+		}
+	},]]
 	DeviceButton_x = {
 		name = "BPMText",
 		textHeader = "BPM Text Position:",
@@ -653,6 +849,23 @@ Movable = {
 		}
 	},
 	DeviceButton_n = {
+		name = "Notefield",
+		textHeader = "Notefield Columns:",
+		properties = {"Spacing"},
+		elementTree = "GameplaySizes",
+		noBorder = true,
+		DeviceButton_up = {
+			arbitraryInc = true,
+			property = "Spacing",
+			inc = 1
+		},
+		DeviceButton_down = {
+			arbitraryInc = true,
+			property = "Spacing",
+			inc = -1
+		},
+	},
+	DeviceButton_m = {
 		name = "DisplayMean",
 		textHeader = "Current Mean Position:",
 		element = {},
@@ -675,7 +888,7 @@ Movable = {
 			inc = 5
 		}
 	},
-	DeviceButton_m = {
+	DeviceButton_comma = {
 		name = "DisplayMean",
 		textHeader = "Current Mean Size:",
 		element = {},
@@ -689,48 +902,8 @@ Movable = {
 			property = "Zoom",
 			inc = -0.01
 		}
-	},
-	DeviceButton_z = {
-		name = "PracticeCDGraph",
-		textHeader = "Chord Density Graph Position:",
-		properties = {"X","Y"},
-		element = {},
-		elementTree = "GameplayXYCoordinates",
-		propertyOffsets = nil,
-		DeviceButton_up = {
-			property = "Y",
-			inc = -3
-		},
-		DeviceButton_down = {
-			property = "Y",
-			inc = 3
-		},
-		DeviceButton_left = {
-			property = "X",
-			inc = -3
-		},
-		DeviceButton_right = {
-			property = "X",
-			inc = 3
-		}
-	},
-	DeviceButton_f = {
-		name = "Notefield",
-		textHeader = "Notefield Columns:",
-		properties = {"Spacing"},
-		elementTree = "GameplaySizes",
-		noBorder = true,
-		DeviceButton_up = {
-			arbitraryInc = true,
-			property = "Spacing",
-			inc = 1
-		},
-		DeviceButton_down = {
-			arbitraryInc = true,
-			property = "Spacing",
-			inc = -1
-		},
-	},
+	}
+	
 }
 
 local function updatetext(button)
@@ -744,6 +917,7 @@ local function updatetext(button)
 end
 
 function MovableInput(event)
+	if SCREENMAN:GetTopScreen():GetName() == "ScreenGameplaySyncMachine" then return end
 	if getAutoplay() ~= 0 then
 		-- this will eat any other mouse input than a right click (toggle)
 		-- so we don't have to worry about anything weird happening with the ersatz inputs -mina
@@ -984,6 +1158,12 @@ function MovableBorder(width, height, bw, x, y)
 		InitCommand=function(self)
 			self:xy(x,y):diffusealpha(0)
 			self:SetUpdateFunction(bordermousereact)
+		end,
+		OnCommand=function(self)
+			if SCREENMAN:GetTopScreen():GetName() == "ScreenGameplaySyncMachine" then
+				self:visible(false)
+				self:SetUpdateFunction(nil)
+			end
 		end,
 		ChangeWidthCommand=function(self, params)
 			self:GetChild("xbar"):zoomx(params.val)

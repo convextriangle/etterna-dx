@@ -1,4 +1,7 @@
 local t = Def.ActorFrame {
+	LoadActor(THEME:GetPathG("", "_shared header")) .. {
+	},
+
 	LoadActor("bg_color") .. {
 		InitCommand = function(self)
 			self:x(320):y(SCREEN_CENTER_Y):diffusealpha(8)
