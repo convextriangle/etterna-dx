@@ -88,7 +88,7 @@ t[#t + 1] = Def.ActorFrame {
         InitCommand = function(self)
             self:y(105):valign(0):zoom(.4)
 
-            self:settextf("MA: %.2f:1",
+            self:settextf("MA (J%d): %.2f:1", GetTimingDifficulty(),
                 score:GetTapNoteScore("TapNoteScore_W1") / score:GetTapNoteScore("TapNoteScore_W2"))
         end
     },
@@ -96,7 +96,7 @@ t[#t + 1] = Def.ActorFrame {
         InitCommand = function(self)
             self:y(120):valign(0):zoom(.4)
 
-            self:settextf("PA: %.2f:1",
+            self:settextf("PA (J%d): %.2f:1", GetTimingDifficulty(),
                 score:GetTapNoteScore("TapNoteScore_W2") / score:GetTapNoteScore("TapNoteScore_W3"))
         end
     },
