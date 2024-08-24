@@ -83,7 +83,7 @@ end
 
 local function getRescoreElements(pss, score)
     local o = {}
-    o["dvt"] = dvt
+    o["dvt"] = pss:GetOffsetVector()
     o["totalHolds"] = pss:GetRadarPossible():GetValue("RadarCategory_Holds") +
         pss:GetRadarPossible():GetValue("RadarCategory_Rolls")
     o["holdsHit"] = score:GetRadarValues():GetValue("RadarCategory_Holds") +
@@ -91,7 +91,7 @@ local function getRescoreElements(pss, score)
     o["holdsMissed"] = o["totalHolds"] - o["holdsHit"]
     o["minesHit"] = pss:GetRadarPossible():GetValue("RadarCategory_Mines") -
         score:GetRadarValues():GetValue("RadarCategory_Mines")
-    o["totalTaps"] = totalTaps
+    o["totalTaps"] = pss:GetTotalTaps()
     return o
 end
 
@@ -216,7 +216,7 @@ t[#t + 1] = Def.ActorFrame {
             self:settextf("%.2f%%", score:GetWifeScore() * 100):zoom(0.3)
         end,
         UpdateScoreCommand = function(self, params)
-            local rst = getRescoreElements(pss, pss:GetHighScore())
+            local rst = getRescoreElements(pss, score)
 
             self:settextf("%.2f%%", getRescoredWife3Judge(3, params.judgeSetting, rst))
         end,
