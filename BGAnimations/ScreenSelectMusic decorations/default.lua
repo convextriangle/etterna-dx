@@ -9,6 +9,11 @@ t[#t + 1] = StandardDecorationFromFileOptional("BPMDisplay", "BPMDisplay") .. {
 t[#t + 1] = StandardDecorationFromFileOptional("TotalTime", "TotalTime");
 t[#t + 1] = StandardDecorationFromFileOptional("DifficultyList", "DifficultyList") .. {
 	SetChartPreviewStateMessageCommand = function(self, params)
+		local song = GAMESTATE:GetCurrentSong()
+		if not song then
+			self:visible(false)
+			return
+		end
 		self:visible(not params.visible)
 	end,
 }

@@ -76,6 +76,12 @@ local t = Def.ActorFrame {
 			self:visible(true)
 		end,
 		SetChartPreviewStateMessageCommand = function(self, params)
+			local song = GAMESTATE:GetCurrentSong()
+			if not song then
+				self:visible(false)
+				return
+			end
+
 			self:visible(not params.visible)
 		end,
 	},
@@ -113,6 +119,12 @@ local t = Def.ActorFrame {
 			self:settext(song:GetDisplaySubTitle() .. " // " .. song:GetOrTryAtLeastToGetSimfileAuthor())
 		end,
 		SetChartPreviewStateMessageCommand = function(self, params)
+			local song = GAMESTATE:GetCurrentSong()
+			if not song then
+				self:visible(false)
+				return
+			end
+
 			self:visible(not params.visible)
 		end,
 	},
@@ -150,6 +162,12 @@ local t = Def.ActorFrame {
 			self:settext(song:GetDisplayArtist())
 		end,
 		SetChartPreviewStateMessageCommand = function(self, params)
+			local song = GAMESTATE:GetCurrentSong()
+			if not song then
+				self:visible(false)
+				return
+			end
+
 			self:visible(not params.visible)
 		end,
 	},
@@ -191,6 +209,12 @@ local t = Def.ActorFrame {
 			title_style(self)
 		end,
 		SetChartPreviewStateMessageCommand = function(self, params)
+			local song = GAMESTATE:GetCurrentSong()
+			if not song then
+				self:visible(false)
+				return
+			end
+
 			self:visible(not params.visible)
 		end,
 	},
