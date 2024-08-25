@@ -12,7 +12,7 @@ t[#t + 1] = Def.ActorFrame {
         MESSAGEMAN:Broadcast("TabChanged", { name = "MainTab" })
     end,
 
-    LoadActor("tab_banner") .. {
+    LoadActor("tabdecorations/tab_banner") .. {
         InitCommand = function(self)
             self:addx(-50)
             self:zoomx(0.85)

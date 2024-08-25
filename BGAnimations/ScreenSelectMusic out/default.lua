@@ -1,5 +1,5 @@
 local t = Def.ActorFrame {
-	LoadActor(THEME:GetPathB("", "STAGE")) .. {
+	LoadActor("STAGE") .. {
 		InitCommand = function(self)
 			self:zoomx(SCREEN_WIDTH / 640)
 		end,
