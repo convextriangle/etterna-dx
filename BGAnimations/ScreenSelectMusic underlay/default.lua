@@ -12,12 +12,6 @@ end
 
 -- Difficulty selection banner, song subtitle, title and artist
 local t = Def.ActorFrame {
-	-- LoadActor("banner.png") .. {
-	-- 	InitCommand = function(self)
-	-- 		self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y)
-	-- 		self:zoom(0.45)
-	-- 	end
-	-- },
 	LoadActor("play_data.png") .. {
 		InitCommand = function(self)
 			self:x(SCREEN_CENTER_X - 85):y(SCREEN_CENTER_Y + 175)
@@ -81,6 +75,9 @@ local t = Def.ActorFrame {
 
 			self:visible(true)
 		end,
+		SetChartPreviewStateMessageCommand = function(self, params)
+			self:visible(not params.visible)
+		end,
 	},
 	LoadFont("artist 16px") .. {
 		Text = "stepartist_subtitle",
@@ -114,7 +111,10 @@ local t = Def.ActorFrame {
 			self:addy(5)
 			self:diffusealpha(1)
 			self:settext(song:GetDisplaySubTitle() .. " // " .. song:GetOrTryAtLeastToGetSimfileAuthor())
-		end
+		end,
+		SetChartPreviewStateMessageCommand = function(self, params)
+			self:visible(not params.visible)
+		end,
 	},
 	LoadFont("artist 16px") .. {
 		Text = "artist",
@@ -148,7 +148,10 @@ local t = Def.ActorFrame {
 			self:addy(5)
 			self:diffusealpha(1)
 			self:settext(song:GetDisplayArtist())
-		end
+		end,
+		SetChartPreviewStateMessageCommand = function(self, params)
+			self:visible(not params.visible)
+		end,
 	},
 	LoadFont("01/01 48px") .. {
 		Text = "title",
@@ -186,7 +189,10 @@ local t = Def.ActorFrame {
 
 			self:settext(song:GetDisplayMainTitle())
 			title_style(self)
-		end
+		end,
+		SetChartPreviewStateMessageCommand = function(self, params)
+			self:visible(not params.visible)
+		end,
 	},
 };
 

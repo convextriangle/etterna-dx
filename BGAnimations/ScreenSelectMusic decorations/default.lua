@@ -1,9 +1,17 @@
 local t = Def.ActorFrame {};
 
 t[#t + 1] = StandardDecorationFromFileOptional("BannerFrame", "banner frame");
-t[#t + 1] = StandardDecorationFromFileOptional("BPMDisplay", "BPMDisplay");
+t[#t + 1] = StandardDecorationFromFileOptional("BPMDisplay", "BPMDisplay") .. {
+	SetChartPreviewStateMessageCommand = function(self, params)
+		self:visible(not params.visible)
+	end,
+}
 t[#t + 1] = StandardDecorationFromFileOptional("TotalTime", "TotalTime");
-t[#t + 1] = StandardDecorationFromFileOptional("DifficultyList", "DifficultyList");
+t[#t + 1] = StandardDecorationFromFileOptional("DifficultyList", "DifficultyList") .. {
+	SetChartPreviewStateMessageCommand = function(self, params)
+		self:visible(not params.visible)
+	end,
+}
 
 t[#t + 1] = LoadActor("song_search");
 t[#t + 1] = LoadActor("song_info");
