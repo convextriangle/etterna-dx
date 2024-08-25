@@ -95,7 +95,7 @@ t[#t + 1] = LoadActorWithParams("chordDensityGraph", {
 
 t[#t + 1] = Def.NoteFieldPreview {
     Name = "NoteField",
-    DrawDistanceBeforeTargetsPixels = 300,
+    DrawDistanceBeforeTargetsPixels = 400,
     DrawDistanceAfterTargetsPixels = 0,
 
     BeginCommand = function(self)
