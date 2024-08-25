@@ -34,15 +34,6 @@ t[#t + 1] = Def.ActorFrame {
         end
         self:visible(true)
     end,
-    SetChartPreviewStateMessageCommand = function(self, params)
-        local song = GAMESTATE:GetCurrentSong()
-        if not song then
-            self:visible(false)
-            return
-        end
-
-        self:visible(not params.visible)
-    end,
 
     StandardDecorationFromFileOptional("BPMDisplay", "BPMDisplay") .. {
     },
