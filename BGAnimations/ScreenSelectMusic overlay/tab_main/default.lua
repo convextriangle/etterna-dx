@@ -11,9 +11,22 @@ local t = Def.ActorFrame {
 
         self:visible(true)
     end,
+    CurrentSongChangedMessageCommand = function(self)
+        local song = GAMESTATE:GetCurrentSong()
+        if not song then
+            self:visible(false)
+            return
+        end
+        self:visible(true)
+    end,
 };
 
-t[#t + 1] = LoadActor("song_stats");
+t[#t + 1] = LoadActor("song_stats") .. {
+    InitCommand = function(self)
+        self:draworder(2)
+    end,
+}
+
 
 local title_style = function(self)
     local colors = {}
@@ -26,6 +39,9 @@ local title_style = function(self)
 end
 
 t[#t + 1] = Def.ActorFrame {
+    InitCommand = function(self)
+        self:draworder(2)
+    end,
     CurrentSongChangedMessageCommand = function(self)
         local song = GAMESTATE:GetCurrentSong()
         if not song then

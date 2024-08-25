@@ -110,7 +110,12 @@ local t = Def.ActorFrame {
                 end
             end
         end)
-    end
+    end,
+    SetChartPreviewStateMessageCommand = function(self, params)
+        if not params.visible then
+            TOOLTIP:Hide()
+        end
+    end,
 }
 
 local function getColorForDensity(density, nColumns)

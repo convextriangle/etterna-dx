@@ -6,6 +6,10 @@ local chartPreviewCallback = function(event)
         return
     end
 
+    if GAMESTATE:GetCurrentSong() == nil then
+        return
+    end
+
     visibility = not visibility
     -- do something
     if visibility then
@@ -42,6 +46,18 @@ t[#t + 1] = Def.Quad {
         --self:visible(false)
         self:zoomto(200, 300)
         self:diffuse(color("#232323A0"))
+        self:draworder(2)
+    end,
+    SetChartPreviewStateMessageCommand = function(self, params)
+        self:visible(params.visible)
+    end,
+}
+
+t[#t + 1] = LoadActor("../tabdecorations/tab_background") .. {
+    InitCommand = function(self)
+        self:zoomx(0.4)
+        self:zoomtoheight(340)
+        self:draworder(1)
     end,
     SetChartPreviewStateMessageCommand = function(self, params)
         self:visible(params.visible)
@@ -58,19 +74,21 @@ t[#t + 1] = LoadActorWithParams("chordDensityGraph", {
 }) .. {
     InitCommand = function(self)
         self:visible(false)
-        self:addx(-100):addy(-180)
-        self:draworder(91)
+        self:addx(-100):addy(-150)
+        self:draworder(92)
     end,
     LoadNoteDataCommand = function(self, params)
         local steps = params.steps
         if steps ~= nil then
             self:playcommand("LoadDensityGraph", { steps = steps, song = params.song })
+            self:draworder(92)
         end
     end,
     SetChartPreviewStateMessageCommand = function(self, params)
         self:visible(params.visible)
         if self:GetVisible() then
             self:playcommand("LoadNoteData", { steps = GAMESTATE:GetCurrentSteps(), song = GAMESTATE:GetCurrentSong() })
+            self:draworder(92)
         end
     end,
 }
@@ -82,6 +100,7 @@ t[#t + 1] = Def.NoteFieldPreview {
 
     BeginCommand = function(self)
         self:zoom(0.5):draworder(90)
+        self:addy(10)
         self:GetParent():SortByDrawOrder()
         self:visible(false)
     end,
