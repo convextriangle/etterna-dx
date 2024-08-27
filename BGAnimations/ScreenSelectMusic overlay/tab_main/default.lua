@@ -4,20 +4,11 @@ local t = Def.ActorFrame {
         self:visible(false)
     end,
     TabChangedMessageCommand = function(self, params)
-        if params.name ~= self:GetName() then
-            self:visible(false)
-            return
-        end
-
-        self:visible(true)
+        self:visible(params.name == self:GetName())
     end,
     CurrentSongChangedMessageCommand = function(self)
         local song = GAMESTATE:GetCurrentSong()
-        if not song then
-            self:visible(false)
-            return
-        end
-        self:visible(true)
+        self:visible(song ~= nil)
     end,
 };
 

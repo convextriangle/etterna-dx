@@ -13,17 +13,17 @@ local chartPreviewCallback = function(event)
     visibility = not visibility
     -- do something
     if visibility then
-        MESSAGEMAN:Broadcast("TabChanged", { name = "SongPreviewTab" })
+        MESSAGEMAN:Broadcast("TabChanged", { name = "ChartPreviewTab" })
     else
         -- well i could implement a tab stack of some sort so you *could*
         -- go back to the tab you were at before but i'm not bothering with that
         -- (make a pull request if you want)
         MESSAGEMAN:Broadcast("TabChanged", { name = "MainTab" })
     end
-    MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
 end
 
 local t = Def.ActorFrame {
+    Name = "ChartPreviewTab",
     InitCommand = function(self)
         self:xy(SCREEN_CENTER_X - 200, SCREEN_CENTER_Y + 20)
     end,
@@ -37,7 +37,17 @@ local t = Def.ActorFrame {
     end,
     CurrentStepsChangedMessageCommand = function(self, params)
         visibility = false
+        self:visible(false)
         MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
+    end,
+    TabChangedMessageCommand = function(self, params)
+        visibility = params.name == self:GetName()
+        self:visible(visibility)
+        MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
+    end,
+    CurrentSongChangedMessageCommand = function(self)
+        local song = GAMESTATE:GetCurrentSong()
+        self:visible(song ~= nil)
     end,
 }
 
@@ -86,7 +96,7 @@ t[#t + 1] = LoadActorWithParams("chordDensityGraph", {
     end,
     SetChartPreviewStateMessageCommand = function(self, params)
         self:visible(params.visible)
-        if self:GetVisible() then
+        if params.visible then
             self:playcommand("LoadNoteData", { steps = GAMESTATE:GetCurrentSteps(), song = GAMESTATE:GetCurrentSong() })
             self:draworder(92)
         end

@@ -1,8 +1,10 @@
 local t = Def.ActorFrame {}
 local tab_corner_x = -250
 
-t[#t + 1] = LoadActor("tab_main")
-t[#t + 1] = LoadActor("tab_chartpreview")
+local tabs = { "chartpreview", "main", "msd", "profile", "search" }
+for i = 1, #tabs, 1 do
+    t[#t + 1] = LoadActor("tab_" .. tabs[i])
+end
 
 -- tab display text
 t[#t + 1] = Def.ActorFrame {
@@ -53,7 +55,7 @@ t[#t + 1] = Def.ActorFrame {
             self:addy(10)
             self:addx(tab_corner_x + 180)
             self:zoom(0.5)
-            self:settext("FILTERS")
+            self:settext("PREVIEW")
         end,
     },
     LoadFont("handel/handel 24px") .. {
@@ -130,7 +132,7 @@ t[#t + 1] = Def.ActorFrame {
         end,
         MouseDownCommand = function(self, params)
             if params.event ~= "DeviceButton_left mouse button" then return end
-            MESSAGEMAN:Broadcast("TabChanged", { name = "FilterTab" })
+            MESSAGEMAN:Broadcast("TabChanged", { name = "ChartPreviewTab" })
         end,
     },
     UIElements.QuadButton(1, 1) .. {
