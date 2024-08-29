@@ -15,4 +15,10 @@ t[#t + 1] = LoadActor("../tabdecorations/tab_background") .. {
     end,
 }
 
+t[#t + 1] = LoadActor("song_search") .. {
+    InitCommand = function(self)
+        self:xy(SCREEN_CENTER_X - 150, SCREEN_CENTER_Y + 15)
+    end,
+}
+
 return t
