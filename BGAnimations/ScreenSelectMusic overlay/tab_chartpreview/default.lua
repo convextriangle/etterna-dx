@@ -41,7 +41,7 @@ local t = Def.ActorFrame {
         MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
     end,
     TabChangedMessageCommand = function(self, params)
-        visibility = params.name == self:GetName()
+        visibility = params.name == self:GetName() and GAMESTATE:GetCurrentSong() ~= nil
         self:visible(visibility)
         MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
     end,
