@@ -45,10 +45,6 @@ local t = Def.ActorFrame {
         self:visible(visibility)
         MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
     end,
-    CurrentSongChangedMessageCommand = function(self)
-        local song = GAMESTATE:GetCurrentSong()
-        self:visible(song ~= nil)
-    end,
 }
 
 t[#t + 1] = Def.Quad {

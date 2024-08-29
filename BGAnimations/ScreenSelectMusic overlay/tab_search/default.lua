@@ -6,10 +6,6 @@ local t = Def.ActorFrame {
     TabChangedMessageCommand = function(self, params)
         self:visible(params.name == self:GetName())
     end,
-    CurrentSongChangedMessageCommand = function(self)
-        local song = GAMESTATE:GetCurrentSong()
-        self:visible(song == nil)
-    end,
 }
 
 t[#t + 1] = LoadActor("../tabdecorations/tab_background") .. {

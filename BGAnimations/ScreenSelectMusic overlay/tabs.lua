@@ -1,4 +1,16 @@
-local t = Def.ActorFrame {}
+local t = Def.ActorFrame {
+    InitCommand = function(self)
+        MESSAGEMAN:Broadcast("TabChanged", { name = "MainTab" })
+    end,
+    CurrentSongChangedMessageCommand = function(self)
+        local song = GAMESTATE:GetCurrentSong()
+        if song == nil then
+            MESSAGEMAN:Broadcast("TabChanged", { name = "HIDE_EVERYTHING_Tab" })
+        else
+            MESSAGEMAN:Broadcast("TabChanged", { name = "MainTab" })
+        end
+    end,
+}
 local tab_corner_x = -250
 
 local tabs = { "chartpreview", "main", "msd", "profile", "search" }
@@ -11,7 +23,6 @@ t[#t + 1] = Def.ActorFrame {
     InitCommand = function(self)
         self:xy(SCREEN_CENTER_X - 170, SCREEN_CENTER_Y - 200)
         self:zoomx(0.8)
-        MESSAGEMAN:Broadcast("TabChanged", { name = "MainTab" })
     end,
 
     LoadActor("tabdecorations/tab_banner") .. {

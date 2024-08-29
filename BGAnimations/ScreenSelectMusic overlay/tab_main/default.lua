@@ -6,10 +6,6 @@ local t = Def.ActorFrame {
     TabChangedMessageCommand = function(self, params)
         self:visible(params.name == self:GetName())
     end,
-    CurrentSongChangedMessageCommand = function(self)
-        local song = GAMESTATE:GetCurrentSong()
-        self:visible(song ~= nil)
-    end,
 };
 
 t[#t + 1] = LoadActor("song_stats") .. {
@@ -32,14 +28,6 @@ end
 t[#t + 1] = Def.ActorFrame {
     InitCommand = function(self)
         self:draworder(2)
-    end,
-    CurrentSongChangedMessageCommand = function(self)
-        local song = GAMESTATE:GetCurrentSong()
-        if not song then
-            self:visible(false)
-            return
-        end
-        self:visible(true)
     end,
 
     StandardDecorationFromFileOptional("BPMDisplay", "BPMDisplay") .. {
