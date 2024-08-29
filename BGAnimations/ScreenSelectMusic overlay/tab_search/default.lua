@@ -10,8 +10,8 @@ local t = Def.ActorFrame {
 
 t[#t + 1] = LoadActor("../tabdecorations/tab_background") .. {
     InitCommand = function(self)
-        self:xy(SCREEN_CENTER_X, SCREEN_CENTER_Y)
-        self:zoom(0.45)
+        self:xy(SCREEN_CENTER_X - 185, SCREEN_CENTER_Y + 15)
+        self:zoomx(0.75):zoomy(0.45)
     end,
 }
 
