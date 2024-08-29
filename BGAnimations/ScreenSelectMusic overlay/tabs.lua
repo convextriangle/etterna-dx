@@ -33,12 +33,6 @@ t[#t + 1] = Def.ActorFrame {
     },
     LoadFont("handel/handel 24px") .. {
         InitCommand = function(self)
-            self:settext("TABS"):zoom(0.5)
-            self:addy(-15):addx(-260)
-        end,
-    },
-    LoadFont("handel/handel 24px") .. {
-        InitCommand = function(self)
             self:addy(10)
             self:addx(tab_corner_x)
             self:zoom(0.5)
