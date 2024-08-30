@@ -1,8 +1,13 @@
 local chart_preview
 local visibility
+local current_tab = "MainTab"
 
 local chartPreviewCallback = function(event)
-    if not visibility or event.type == "InputEventType_Release" or event.DeviceInput.button ~= "DeviceButton_space" then
+    if event.type == "InputEventType_Release" or event.DeviceInput.button ~= "DeviceButton_space" then
+        return
+    end
+
+    if current_tab ~= "MainTab" and current_tab ~= "ChartPreviewTab" then
         return
     end
 
@@ -41,6 +46,7 @@ local t = Def.ActorFrame {
         MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
     end,
     TabChangedMessageCommand = function(self, params)
+        current_tab = params.name
         visibility = params.name == self:GetName() and GAMESTATE:GetCurrentSong() ~= nil
         self:visible(visibility)
         MESSAGEMAN:Broadcast("SetChartPreviewState", { visible = visibility })
