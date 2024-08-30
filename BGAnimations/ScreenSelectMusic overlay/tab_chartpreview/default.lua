@@ -2,7 +2,7 @@ local chart_preview
 local visibility
 
 local chartPreviewCallback = function(event)
-    if event.type == "InputEventType_Release" or event.DeviceInput.button ~= "DeviceButton_space" then
+    if not visibility or event.type == "InputEventType_Release" or event.DeviceInput.button ~= "DeviceButton_space" then
         return
     end
 
