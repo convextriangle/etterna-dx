@@ -12,7 +12,7 @@ local defaultConfig = {
 		enabled = "#4CBB17",
 		disabled = "#666666",
 		negative = "#FF9999",
-		positive = "#9654FD"
+		positive = "#FFFFFF"
 	},
 	leaderboard = {
 		background = "#111111CC",
@@ -43,11 +43,11 @@ local defaultConfig = {
 		Difficulty_Challenge = "#c97bff", -- light blue
 		Difficulty_Edit = "#666666", -- gray
 		Beginner = "#66ccff",
-		Easy = "#099948", -- green
-		Medium = "#ddaa00", -- yellow
-		Hard = "#ff6666", -- red
-		Challenge = "#c97bff", -- Purple
-		Edit = "#666666", -- gray
+		Easy = "#099948",           -- green
+		Medium = "#ddaa00",         -- yellow
+		Hard = "#ff6666",           -- red
+		Challenge = "#c97bff",      -- Purple
+		Edit = "#666666",           -- gray
 		Difficulty_Crazy = "#cc66ff",
 		Difficulty_Freestyle = "#666666",
 		Difficulty_Nightmare = "#666666",
@@ -62,12 +62,12 @@ local defaultConfig = {
 		Difficulty_Hard = "#ff0000", -- red
 		Difficulty_Challenge = "#cc66ff", -- light blue
 		Difficulty_Edit = "#666666", -- gray
-		Beginner = "#0099ff", -- light blue
-		Easy = "#00ff00", -- green
-		Medium = "#ffff00", -- yellow
-		Hard = "#ff0000", -- red
-		Challenge = "#cc66ff", -- Purple
-		Edit = "#666666", -- gray
+		Beginner = "#0099ff",       -- light blue
+		Easy = "#00ff00",           -- green
+		Medium = "#ffff00",         -- yellow
+		Hard = "#ff0000",           -- red
+		Challenge = "#cc66ff",      -- Purple
+		Edit = "#666666",           -- gray
 		Difficulty_Crazy = "#cc66ff",
 		Difficulty_Freestyle = "#666666",
 		Difficulty_Nightmare = "#666666",
@@ -130,7 +130,7 @@ colorConfig = create_setting("colorConfig", "colorConfig.lua", defaultConfig, -1
 --colorConfig:load()
 
 --keys to current table. Assumes a depth of 2.
-local curColor = {"", ""}
+local curColor = { "", "" }
 
 function getTableKeys()
 	return curColor
