@@ -20,6 +20,7 @@ local chartPreviewCallback = function(event)
     if visibility then
         MESSAGEMAN:Broadcast("TabChanged", { name = "ChartPreviewTab" })
     else
+        TOOLTIP:Hide()
         -- well i could implement a tab stack of some sort so you *could*
         -- go back to the tab you were at before but i'm not bothering with that
         -- (make a pull request if you want)
@@ -87,20 +88,20 @@ t[#t + 1] = LoadActorWithParams("chordDensityGraph", {
     InitCommand = function(self)
         self:visible(false)
         self:addx(-100):addy(-150)
-        self:draworder(92)
+        self:draworder(4)
     end,
     LoadNoteDataCommand = function(self, params)
         local steps = params.steps
         if steps ~= nil then
             self:playcommand("LoadDensityGraph", { steps = steps, song = params.song })
-            self:draworder(92)
+            self:draworder(4)
         end
     end,
     SetChartPreviewStateMessageCommand = function(self, params)
         self:visible(params.visible)
         if params.visible then
             self:playcommand("LoadNoteData", { steps = GAMESTATE:GetCurrentSteps(), song = GAMESTATE:GetCurrentSong() })
-            self:draworder(92)
+            self:draworder(4)
         end
     end,
 }
@@ -111,7 +112,7 @@ t[#t + 1] = Def.NoteFieldPreview {
     DrawDistanceAfterTargetsPixels = 0,
 
     BeginCommand = function(self)
-        self:zoom(0.5):draworder(90)
+        self:zoom(0.5):draworder(3)
         self:addy(10)
         self:GetParent():SortByDrawOrder()
         self:visible(false)
